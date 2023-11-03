@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import './pages/home_page.dart';
+import 'pages/start_page.dart';
 import './pages/login_page.dart';
 import './pages/register_page.dart';
 
 class RouteGenerator {
-  static const String homePage = '/';
+  static const String startPage = '/';
   static const String loginPage = '/login';
   static const String registerPage = '/cadastro';
 
@@ -12,9 +12,9 @@ class RouteGenerator {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case homePage:
+      case startPage:
         return MaterialPageRoute(
-          builder: (_) => const Home(),
+          builder: (_) => const Start(),
         );
       case loginPage:
         return MaterialPageRoute(

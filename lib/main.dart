@@ -12,7 +12,7 @@ class MedSenior extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateTitle: (context) => "Med Senior",
-      initialRoute: RouteGenerator.homePage,
+      initialRoute: RouteGenerator.startPage,
       onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
     );
