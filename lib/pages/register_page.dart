@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
-import '../components/form_login.dart';
+import '../components/form_register.dart';
 import '../components/button_footer.dart';
-import '../routes.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Center(
-            child: SizedBox(
-              width: 150,
-              child: Image.asset("assets/img/icone_MedSenior_1.png"),
-            ),
-          ),
           Center(
             child: Container(
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -33,14 +26,14 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Entrar",
+                        "Cadastrar",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 35,
                         ),
                       ),
                       Text(
-                        "Entre com o seu E-mail e senha",
+                        "Entre com as suas credenciais e continue",
                         style: TextStyle(
                             color: Color.fromARGB(255, 109, 109, 109),
                             fontSize: 18),
@@ -52,27 +45,27 @@ class _LoginState extends State<Login> {
             ),
           ),
           const Center(
-            child: FormLogin(),
+            child: FormRegister(),
           ),
           Center(
             child: Column(
               children: [
-                const ButtonFooter("Entrar", ""),
+                const ButtonFooter("Cadastrar", ""),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Não tem conta?  "),
+                      const Text("Já possui conta?  "),
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed("/cadastro");
+                          Navigator.of(context).pushNamed("/login");
                         },
                         child: const Text(
-                          "Cadastre-se",
+                          "Entar",
                           style: TextStyle(color: Colors.blue),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 )
