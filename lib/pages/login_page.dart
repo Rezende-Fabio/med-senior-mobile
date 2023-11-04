@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
           Center(
             child: Column(
               children: [
-                const ButtonFooter("Entrar", ""),
+                const ButtonFooter("Entrar", "/home"),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Row(
