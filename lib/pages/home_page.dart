@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/bottom_navigator.dart';
 import '../pages/medications_page.dart';
+import '../pages/register_mecations_page.dart';
 
 
 class Home extends StatefulWidget {
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> {
         children: [
           Medications(),
           Container(
-            child: Text("Tela 2"),
+            child: Text("Tela 3"),
           ),
           Container(
             child: Text("Tela 3"),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import '../pages/register_mecations_page.dart';
 
 class CardListMedications extends StatefulWidget {
   final String fv;
@@ -13,52 +15,61 @@ class _CardListMedicationsState extends State<CardListMedications> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-      child: Container(
-        decoration: const BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: Color.fromARGB(255, 59, 59, 59)),
-          ),
-        ),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 2, bottom: 15, right: 5),
-              child: SizedBox(
-                width: 55,
-                child: Image.asset("assets/img/icone_MedSenior_1.png"),
-              ),
+      child: GestureDetector(
+        onTap: () => Navigator.of(context).push(
+          PageTransition(
+            type: PageTransitionType.bottomToTop,
+            duration: Duration(milliseconds: 350),
+            child: RegisterMedciations()
             ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.fv,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                      Text(
-                        "${widget.fv}, Preço",
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 146, 146, 146)),
-                      ),
-                    ],
-                  ),
-                  const Row(
-                    children: [
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 15,
-                      )
-                    ],
-                  )
-                ],
+        ),
+        child: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom: BorderSide(color: Color.fromARGB(255, 59, 59, 59)),
+            ),
+          ),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 2, bottom: 15, right: 5),
+                child: SizedBox(
+                  width: 55,
+                  child: Image.asset("assets/img/icone_MedSenior_1.png"),
+                ),
               ),
-            )
-          ],
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.fv,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                        Text(
+                          "${widget.fv}, Preço",
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 146, 146, 146)),
+                        ),
+                      ],
+                    ),
+                    const Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 15,
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
