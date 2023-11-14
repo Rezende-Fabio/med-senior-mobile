@@ -56,14 +56,17 @@ class _MedicationsState extends State<Medications> {
                     itemCount: lista.length,
                     itemBuilder: (ctx, index) {
                       final fv = lista[index];
-                      return _isLoading ? lodingCard(context) : CardListMedications(fv);
+                      return _isLoading
+                          ? lodingCard(context)
+                          : CardListMedications(fv);
                     },
                   ),
                 ),
               ],
             ),
           ),
-          const ButtonFooter("Cadastrar Novo Medicamento", ""),
+          const ButtonFooter(
+              "Cadastrar Novo Medicamento", "/cadastro/medicacao", {"title": "Cadastrar Medicamento", "text": "Cadastrar Medicamento"}),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/bottom_navigator.dart';
 import '../pages/medications_page.dart';
-import '../pages/register_mecations_page.dart';
+import 'register_medication_page.dart';
 
 
 class Home extends StatefulWidget {

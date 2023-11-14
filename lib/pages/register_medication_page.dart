@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/button_footer.dart';
 
-class RegisterMedciations extends StatefulWidget {
-  const RegisterMedciations({super.key});
+class RegisterMedication extends StatefulWidget {
+  final String titlePage;
+  final String textButton;
+  const RegisterMedication(this.titlePage, this.textButton, {super.key});
 
   @override
-  State<RegisterMedciations> createState() => _RegisterMedciationsState();
+  State<RegisterMedication> createState() => _RegisterMedicationState();
 }
 
-class _RegisterMedciationsState extends State<RegisterMedciations> {
+class _RegisterMedicationState extends State<RegisterMedication> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +28,10 @@ class _RegisterMedciationsState extends State<RegisterMedciations> {
                     icon: const Icon(Icons.arrow_back_ios_new),
                   ),
                   Text(
-                    "Cadastrar Medicamento",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    widget.titlePage,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
-                  Text(
+                  const Text(
                     "",
                   )
                 ],
@@ -38,14 +40,14 @@ class _RegisterMedciationsState extends State<RegisterMedciations> {
             Expanded(
               child: Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(25.0),
                         topRight: Radius.circular(25.0)),
-                    color: const Color.fromARGB(255, 192, 192, 192)),
+                    color: Color.fromARGB(255, 192, 192, 192)),
                 child: Column(
                   children: [
-                    const ButtonFooter("Cadastrar Medicamento", ""),
+                    ButtonFooter(widget.textButton, "", const {}),
                   ],
                 ),
               ),

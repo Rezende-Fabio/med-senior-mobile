@@ -31,7 +31,7 @@ class Start extends StatelessWidget {
                   ),
                 ],
               ),
-              const ButtonFooter("Entrar", "/login"),
+              const ButtonFooter("Entrar", "/login", {}),
             ],
           ),
         ),

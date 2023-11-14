@@ -55,7 +55,7 @@ class _RegisterState extends State<Register> {
                 Center(
                   child: Column(
                     children: [
-                      const ButtonFooter("Cadastrar", ""),
+                      const ButtonFooter("Cadastrar", "", {}),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
