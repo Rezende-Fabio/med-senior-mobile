@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/button_footer.dart';
+import '../components/form_register_medications.dart';
 
 class RegisterMedication extends StatefulWidget {
   final String titlePage;
@@ -47,6 +48,7 @@ class _RegisterMedicationState extends State<RegisterMedication> {
                     color: Color.fromARGB(255, 192, 192, 192)),
                 child: Column(
                   children: [
+                    FormRegisterMedi(),
                     ButtonFooter(widget.textButton, "", const {}),
                   ],
                 ),
