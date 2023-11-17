@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class FormRegisterMedi extends StatefulWidget {
-  const FormRegisterMedi({super.key});
+  Function initCamera;
+  bool _capuraIMage;
+  FormRegisterMedi(this.initCamera, this._capuraIMage, {super.key});
 
   @override
   State<FormRegisterMedi> createState() => _FormRegisterMediState();
@@ -121,24 +123,44 @@ class _FormRegisterMediState extends State<FormRegisterMedi> {
                 ),
                 SizedBox(
                   height: 50,
-                  child: ElevatedButton(
-                    onPressed: () => {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 114, 114, 114),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    child: const Row(
-                      children: [
-                        Icon(Icons.photo_camera),
-                        Padding(
-                          padding: EdgeInsets.only(left: 15),
-                          child: Text("Tirar foto"),
+                  child: widget._capuraIMage
+                      ? Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadiusDirectional.all(Radius.circular(15))
                         ),
-                      ],
-                    ),
-                  ),
+                          child: const Row(
+                            children: [
+                              Icon(Icons.check),
+                              Padding(
+                                padding: EdgeInsets.only(left: 15),
+                                child: Text("Foto tirada"),
+                              ),
+                            ],
+                          ),
+                        )
+                      : ElevatedButton(
+                          onPressed: () async {
+                            await widget.initCamera();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 114, 114, 114),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          child: const Row(
+                            children: [
+                              Icon(Icons.photo_camera),
+                              Padding(
+                                padding: EdgeInsets.only(left: 15),
+                                child: Text("Tirar foto"),
+                              ),
+                            ],
+                          ),
+                        ),
                 )
               ],
             ),
