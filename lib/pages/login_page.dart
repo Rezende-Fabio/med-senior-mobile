@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/form_login.dart';
 import '../components/button_footer.dart';
-import '../routes.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -57,7 +56,7 @@ class _LoginState extends State<Login> {
           Center(
             child: Column(
               children: [
-                const ButtonFooter("Entrar", ""),
+                const ButtonFooter("Entrar", "/home", {}),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Row(
