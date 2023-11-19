@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/button_footer.dart';
 import '../components/line.dart';
-import '../components/card_list_medications.dart';
+import '../components/card_list_schedules.dart';
 import '../components/loading.dart';
 
 class Schedules extends StatefulWidget {
@@ -58,7 +58,7 @@ class _SchedulesState extends State<Schedules> {
                       final fv = lista[index];
                       return _isLoading
                           ? lodingCard(context)
-                          : CardListMedications(fv);
+                          : CardListSchadules(fv);
                     },
                   ),
                 ),
@@ -66,7 +66,10 @@ class _SchedulesState extends State<Schedules> {
             ),
           ),
           const ButtonFooter(
-              "Cadastrar Novo Agendamento", "/cadastro/medicacao", {"title": "Cadastrar Medicamento", "text": "Cadastrar Medicamento"}),
+            "Cadastrar Novo Agendamento",
+            "/cadastro/agendamento",
+            {"title": "Cadastrar Horário", "text": "Cadastrar Horário"},
+          ),
         ],
       ),
     );

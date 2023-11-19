@@ -6,6 +6,7 @@ import './pages/register_page.dart';
 import './pages/home_page.dart';
 import './pages/register_medication_page.dart';
 import './pages/more_information_med_page.dart';
+import './pages/register_schelude_page.dart';
 
 class RouteGenerator {
   static const String startPage = '/';
@@ -14,6 +15,7 @@ class RouteGenerator {
   static const String homePage = '/home';
   static const String registerMedPage = "/cadastro/medicacao";
   static const String moreInformationMedPage = "/informacao/medicacao";
+  static const String registerSchePage = "/cadastro/agendamento";
 
   RouteGenerator._() {}
 
@@ -54,6 +56,21 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => const MoreInformationMed(),
         );
+      case registerSchePage:
+        final Map arguments = settings.arguments as Map;
+
+        if (arguments != null &&
+            arguments.containsKey("title") &&
+            arguments.containsKey("text")) {
+          String titlePage = arguments["title"];
+          String textButton = arguments["text"];
+
+          return MaterialPageRoute(
+            builder: (_) => RegisterSchedule(titlePage, textButton),
+          );
+        } else {
+          throw const FormatException("Rota não encontrada");
+        }
       default:
         throw const FormatException("Rota não encontrada");
     }
