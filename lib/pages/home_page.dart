@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/bottom_navigator.dart';
 import '../pages/medications_page.dart';
-import 'register_medication_page.dart';
+import '../pages/schedules_page.dart';
 
 
 class Home extends StatefulWidget {
@@ -28,9 +28,7 @@ class _HomeState extends State<Home> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           Medications(),
-          Container(
-            child: Text("Tela 3"),
-          ),
+          Schedules(),
           Container(
             child: Text("Tela 3"),
           )

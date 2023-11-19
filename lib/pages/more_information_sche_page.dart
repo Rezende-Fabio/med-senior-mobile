@@ -4,14 +4,14 @@ import '../components/carousel.dart';
 import '../components/line.dart';
 import '../components/card_more_informations.dart';
 
-class MoreInformationMed extends StatefulWidget {
-  const MoreInformationMed({super.key});
+class MoreInformationSche extends StatefulWidget {
+  const MoreInformationSche({super.key});
 
   @override
-  State<MoreInformationMed> createState() => _MoreInformationMedState();
+  State<MoreInformationSche> createState() => _MoreInformationScheState();
 }
 
-class _MoreInformationMedState extends State<MoreInformationMed> {
+class _MoreInformationScheState extends State<MoreInformationSche> {
   final PageController _pageController = PageController();
 
   int _paginaAtual = 0;
@@ -70,79 +70,36 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
               ),
             ),
             Line(top: 15, right: 10, left: 10, bottom: 25),
-            const Column(
+            Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 10, right: 5),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        CardMoreInformation("Administração", "Gotas"),
-                      ],
+                  padding: const EdgeInsets.only(left: 10, right: 5),
+                  child: AnimatedContainer(
+                    duration: const Duration(seconds: 1),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const CardMoreInformation("Gotas", "40"),
+                          Line(top: 10, right: 0, left: 0, bottom: 20),
+                          const CardMoreInformation("Intervalo de Horas", "8 Horas"),
+                          Line(top: 10, right: 0, left: 0, bottom: 20),
+                          const CardMoreInformation("Data Final", "24/12/2023"),
+                          Line(top: 10, right: 0, left: 0, bottom: 20),
+                          const CardMoreInformation("Horário do primeiro consumo", "08:00"),
+                        ],
+                      ),
                     ),
                   ),
                 )
               ],
             ),
-            Line(top: 15, right: 10, left: 10, bottom: 15),
+            Line(top: 10, right: 10, left: 10, bottom: 15),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 5),
-                        child: AnimatedContainer(
-                          duration: const Duration(seconds: 1),
-                          height: isExpanded ? 170 : 40,
-                          child: SingleChildScrollView(
-                            physics: isExpanded
-                                ? const BouncingScrollPhysics()
-                                : const NeverScrollableScrollPhysics(),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      "Detalhes do produto",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: expandirContainer,
-                                      icon: isExpanded
-                                          ? const Icon(
-                                              Icons.keyboard_arrow_down_sharp,
-                                              size: 28,
-                                            )
-                                          : const Icon(
-                                              Icons.keyboard_arrow_right_sharp,
-                                              size: 28,
-                                            ),
-                                    )
-                                  ],
-                                ),
-                                Opacity(
-                                  opacity: isExpanded ? 1 : 0,
-                                  child: const Text(
-                                    "Lorem ipsum dolor sit amet. Ut cumque dolore 33 omnis exercitationem ut sint ipsum vel optio magnam et natus expedita qui debitis delectus eum tempore voluptas. Qui voluptatem temporibus in odit dolores ut temporibus alias a enim vitae qui consequatur laborum!",
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      height: 1.5,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 22, right: 10, left: 10),
@@ -169,10 +126,10 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
                               child: ElevatedButton(
                                 onPressed: () => {
                                   Navigator.of(context).pushNamed(
-                                      "/cadastro/medicacao",
+                                      "/cadastro/agendamento",
                                       arguments: {
-                                        "title": "Editar Medicamento",
-                                        "text": "Editar Medicamento"
+                                        "title": "Editar Horário",
+                                        "text": "Editar Horário"
                                       })
                                 },
                                 style: ElevatedButton.styleFrom(

@@ -14,7 +14,9 @@ class _FormRegisterState extends State<FormRegister> {
   DateTime dataInicial = DateTime.now();
   String? _selectedItem = 'Idoso';
 
+  @override
   void initState() {
+    super.initState();
     setState(() {
       _dataController.text = DateFormat("d/MM/y").format(dataInicial);
     });
