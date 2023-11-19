@@ -16,7 +16,7 @@ class _CardListSchadulesState extends State<CardListSchadules> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       child: GestureDetector(
-        onTap: () => Navigator.of(context).pushNamed("/informacao/medicacao"),
+        onTap: () => Navigator.of(context).pushNamed("/informacao/agendamento"),
         child: Container(
           decoration: const BoxDecoration(
             border: Border(
