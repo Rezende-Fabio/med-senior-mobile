@@ -4,7 +4,7 @@ import '../pages/register_medication_page.dart';
 
 class CardListMedications extends StatefulWidget {
   final String fv;
-  CardListMedications(this.fv);
+  const CardListMedications(this.fv, {super.key});
 
   @override
   State<CardListMedications> createState() => _CardListMedicationsState();
@@ -16,11 +16,7 @@ class _CardListMedicationsState extends State<CardListMedications> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       child: GestureDetector(
-        onTap: () => Navigator.of(context).pushNamed("/cadastro/medicacao",
-            arguments: {
-              "title": "Editar Medicamento",
-              "text": "Editar Medicamento"
-            }),
+        onTap: () => Navigator.of(context).pushNamed("/informacao/medicacao"),
         child: Container(
           decoration: const BoxDecoration(
             border: Border(
