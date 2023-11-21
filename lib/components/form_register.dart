@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class FormRegister extends StatefulWidget {
-  const FormRegister({super.key});
+  final TextEditingController _controllerNome;
+  final TextEditingController _controllerEmail;
+  final TextEditingController _controllerTelefone;
+  final TextEditingController _controllerSenha;
+  final TextEditingController _dataController;
+  String? _selectedItem;
+  FormRegister(
+      this._controllerNome,
+      this._controllerEmail,
+      this._controllerTelefone,
+      this._controllerSenha,
+      this._dataController,
+      this._selectedItem,
+      {super.key});
 
   @override
   State<FormRegister> createState() => _FormRegisterState();
@@ -10,15 +23,13 @@ class FormRegister extends StatefulWidget {
 
 class _FormRegisterState extends State<FormRegister> {
   bool _verSenha = true;
-  final _dataController = TextEditingController();
   DateTime dataInicial = DateTime.now();
-  String? _selectedItem = 'Idoso';
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      _dataController.text = DateFormat("d/MM/y").format(dataInicial);
+      widget._dataController.text = DateFormat("d/MM/y").format(dataInicial);
     });
   }
 
@@ -31,26 +42,38 @@ class _FormRegisterState extends State<FormRegister> {
         children: [
           Container(
             margin: const EdgeInsets.only(bottom: 25),
-            child: const TextField(
+            child: TextField(
+              controller: widget._controllerNome,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Nome",
               ),
             ),
           ),
           Container(
             margin: const EdgeInsets.only(bottom: 25),
-            child: const TextField(
+            child: TextField(
+              controller: widget._controllerEmail,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "E-mail",
+              ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 25),
+            child: TextField(
+              controller: widget._controllerTelefone,
+              textInputAction: TextInputAction.next,
+              decoration: const InputDecoration(
+                labelText: "Telefone",
               ),
             ),
           ),
           Container(
             margin: const EdgeInsets.only(bottom: 15),
             child: TextField(
-              controller: _dataController,
+              controller: widget._dataController,
               decoration: const InputDecoration(
                 suffixIcon: Icon(Icons.calendar_month),
                 labelText: "Data de Nascimento",
@@ -64,7 +87,8 @@ class _FormRegisterState extends State<FormRegister> {
                     lastDate: DateTime(2100));
                 if (novaData != null) {
                   setState(() {
-                    _dataController.text = DateFormat("d/MM/y").format(novaData);
+                    widget._dataController.text =
+                        DateFormat("d/MM/y").format(novaData);
                   });
                 }
               },
@@ -77,10 +101,10 @@ class _FormRegisterState extends State<FormRegister> {
                   padding: const EdgeInsets.only(top: 15),
                   margin: const EdgeInsets.only(bottom: 20, right: 25),
                   child: DropdownButton<String>(
-                    value: _selectedItem,
+                    value: widget._selectedItem,
                     onChanged: (String? newValue) {
                       setState(() {
-                        _selectedItem = newValue; // Atualiza o valor selecionado
+                        widget._selectedItem = newValue; // Atualiza o valor selecionado
                       });
                     },
                     isExpanded: true,
@@ -97,7 +121,7 @@ class _FormRegisterState extends State<FormRegister> {
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 25),
                   child: TextField(
-                    enabled: _selectedItem == "Idoso" ?  false :  true,
+                    enabled: widget._selectedItem == "Idoso" ? false : true,
                     textInputAction: TextInputAction.next,
                     decoration: const InputDecoration(
                       labelText: "Código",
@@ -110,6 +134,7 @@ class _FormRegisterState extends State<FormRegister> {
           Container(
             margin: const EdgeInsets.only(bottom: 25),
             child: TextField(
+              controller: widget._controllerSenha,
               obscureText: _verSenha,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(

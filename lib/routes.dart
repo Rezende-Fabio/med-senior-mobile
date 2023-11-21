@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'pages/start_page.dart';
 import './pages/login_page.dart';
-import './pages/register_page.dart';
+import 'pages/register_page/register_page.dart';
 import './pages/home_page.dart';
 import './pages/register_medication_page.dart';
 import './pages/more_information_med_page.dart';
