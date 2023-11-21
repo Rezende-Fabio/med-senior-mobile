@@ -1,12 +1,14 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:med_senior_mobile/data/models/Cuidador.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_idoso.dart';
 import 'package:med_senior_mobile/pages/register_page/register_controller.dart';
 import 'package:another_flushbar/flushbar.dart';
 import '../../components/button_loding.dart';
 import '../../components/form_register.dart';
 import '../../components/button_footer.dart';
+import 'package:flutter/material.dart';
+import '../../data/models/Idoso.dart';
 import '../../utils/formatDate.dart';
+import 'package:dio/dio.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -22,13 +24,19 @@ class _RegisterState extends State<Register> {
   final _controllerTelefone = TextEditingController();
   final _controllerSenha = TextEditingController();
   final _controllerData = TextEditingController();
-  final String _selectedItem = 'Idoso';
+  final _controllerCodigo = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  String _selectedItem = "Idoso";
 
   @override
   void initState() {
     super.initState();
     _registerController =
         RegisterController(HttpApiReposirotyIdoso(dio: Dio()), _updateScreen);
+  }
+
+  void updateSelectIem(String value) {
+    _selectedItem = value;
   }
 
   void _updateScreen(bool isloading, String error) {
@@ -50,22 +58,50 @@ class _RegisterState extends State<Register> {
         backgroundColor: cor,
       )..show(context);
 
+  void limparForm() {
+    _formKey.currentState!.reset();
+    _controllerNome.clear();
+    _controllerEmail.clear();
+    _controllerTelefone.clear();
+    _controllerSenha.clear();
+    _controllerData.clear();
+    _controllerCodigo.clear();
+    _selectedItem = "Idoso";
+  }
+
   Future<void> _registerIdoso() async {
-    Map idoso = {
-      "nome": _controllerNome.text,
-      "telefone": _controllerTelefone.text,
-      "dataNasc": dateStringToDateTimeString(_controllerData.text),
-      "email": _controllerEmail.text,
-      "senha": _controllerSenha.text,
-      "doencas": []
-    };
-    await _registerController.registerIdoso(idoso);
-    if (_registerController.isLoading == false && _registerController.errorApi.isEmpty) {
-      showToast(
-          "Cadastrado com sucesso!", const Color.fromARGB(255, 22, 133, 0));
-    } else {
-      showToast(
-          _registerController.errorApi, const Color.fromARGB(255, 133, 0, 0));
+    if (_formKey.currentState!.validate()) {
+      if (_selectedItem == "Idoso") {
+        Idoso idoso = Idoso.insert(
+            _controllerNome.text,
+            _controllerTelefone.text,
+            dateStringToDateTimeString(_controllerData.text),
+            [],
+            _controllerEmail.text,
+            _controllerSenha.text);
+
+        await _registerController.registerIdoso(idoso.fromJsonPost());
+      } else {
+        Cuidador cuidador = Cuidador.insert(
+            _controllerNome.text,
+            _controllerTelefone.text,
+            dateStringToDateTimeString(_controllerData.text),
+            _controllerCodigo.text,
+            _controllerEmail.text,
+            _controllerSenha.text);
+
+        await _registerController.registerCuidador(cuidador.fromJsonPost());
+      }
+
+      if (_registerController.isLoading == false &&
+          _registerController.errorApi.isEmpty) {
+        showToast(
+            "Cadastrado com sucesso!", const Color.fromARGB(255, 22, 133, 0));
+        limparForm();
+      } else {
+        showToast(
+            _registerController.errorApi, const Color.fromARGB(255, 133, 0, 0));
+      }
     }
   }
 
@@ -115,7 +151,10 @@ class _RegisterState extends State<Register> {
                       _controllerTelefone,
                       _controllerSenha,
                       _controllerData,
-                      _selectedItem),
+                      _controllerCodigo,
+                      _selectedItem,
+                      _formKey,
+                      updateSelectIem),
                 ),
                 Center(
                   child: Column(

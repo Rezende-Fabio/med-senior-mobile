@@ -1,32 +1,32 @@
 import '../../utils/formatDate.dart';
 
-class Idoso {
+class Cuidador {
   late String nome;
   late String telefone;
   late DateTime dataNasc;
   late String email;
   late String senha;
-  late List<dynamic> doencas;
+  late String codigoIdoso;
 
-  Idoso(
+  Cuidador(
       {required this.nome,
       required this.telefone,
       required this.dataNasc,
-      required this.doencas});
+      required this.codigoIdoso});
 
-  Idoso.insert(this.nome, this.telefone, String dataNasc, this.doencas,
+  Cuidador.insert(this.nome, this.telefone, String dataNasc, this.codigoIdoso,
       this.email, this.senha) {
     DateTime dataNascimento = dateTimeStringToDateTime(dataNasc);
     this.dataNasc = dataNascimento;
   }
 
-  factory Idoso.fromMap(Map<String, dynamic> map) {
-    DateTime dataNascimento = dateTimeStringToDateTime(map["DataNasc"]);
-    return Idoso(
-      nome: map["Nome"],
-      telefone: map["Telefone"],
+  factory Cuidador.fromMap(Map<String, dynamic> map) {
+    DateTime dataNascimento = dateTimeStringToDateTime(map["dataNasc"]);
+    return Cuidador(
+      nome: map["nome"],
+      telefone: map["telefone"],
       dataNasc: dataNascimento,
-      doencas: map["Doencas"],
+      codigoIdoso: map["codigoIdoso"],
     );
   }
 
@@ -37,7 +37,7 @@ class Idoso {
       "dataNasc": dateTimeToDateTimeString(dataNasc),
       "email": email,
       "senha": senha,
-      "doencas": []
+      "codigoIdoso": codigoIdoso
     };
     return json;
   }

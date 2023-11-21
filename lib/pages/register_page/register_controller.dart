@@ -30,4 +30,22 @@ class RegisterController {
       _loadingScreen(isLoading, errorApi);
     }
   }
+
+  Future<void> registerCuidador(Map cuidador) async {
+    isLoading = true;
+    errorApi = "";
+    _loadingScreen(isLoading, errorApi);
+
+    try {
+      final cuidadorPost = await apiRepositoryIdoso.postCuidador(cuidador);
+      isLoading = false;
+      errorApi = "";
+      _loadingScreen(isLoading, errorApi);
+      return cuidadorPost;
+    } on ApiException catch (error) {
+      errorApi = error.message;
+      isLoading = false;
+      _loadingScreen(isLoading, errorApi);
+    }
+  }
 }
