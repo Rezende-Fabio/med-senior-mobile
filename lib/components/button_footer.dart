@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../routes.dart';
 
 class ButtonFooter extends StatelessWidget {
   final String text;
   final String page;
   final Map arguments;
-  const ButtonFooter(this.text, this.page, this.arguments, {super.key});
+  final Function? functionButton;
+  const ButtonFooter(this.text, this.page, this.arguments,
+      {this.functionButton, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +16,15 @@ class ButtonFooter extends StatelessWidget {
       height: 70,
       child: ElevatedButton(
         onPressed: () => {
-          if (arguments.isEmpty)
-            {Navigator.of(context).pushNamed(page)}
+          if (functionButton != null)
+            {functionButton!()}
           else
-            {Navigator.of(context).pushNamed(page, arguments: arguments)}
+            {
+              if (arguments.isEmpty)
+                {Navigator.of(context).pushNamed(page)}
+              else
+                {Navigator.of(context).pushNamed(page, arguments: arguments)}
+            }
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromRGBO(85, 101, 238, 1.0),

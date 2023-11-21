@@ -43,6 +43,9 @@ dependencies:
   shimmer: ^3.0.0
   page_transition: ^2.1.0
   camera: ^0.10.5+5
+  http: ^1.1.0
+  dio: ^5.3.3
+  another_flushbar: ^1.12.30
 
 flutter_icons:
   image_path: "assets/img/icone_MedSenior_1.png"
