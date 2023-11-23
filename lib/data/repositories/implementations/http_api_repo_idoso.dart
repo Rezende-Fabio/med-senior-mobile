@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:med_senior_mobile/data/repositories/api_repository_idoso.dart';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import "package:dio/dio.dart";
 import '../../models/Cuidador.dart';
 import '../../models/Idoso.dart';
@@ -13,7 +14,7 @@ class HttpApiReposirotyIdoso implements ApiRepositoryIdoso {
   @override
   Future postIdoso(Map idoso) async {
     try {
-      final url = '$API_URL/idoso';
+      final url = '${dotenv.env['URL_API']}/idoso';
 
       final response = await _dio.post(url, data: idoso);
 
@@ -31,7 +32,7 @@ class HttpApiReposirotyIdoso implements ApiRepositoryIdoso {
   @override
   Future postCuidador(Map cuidador) async {
     try {
-      final url = '$API_URL/cuidador';
+      final url = '${dotenv.env['URL_API']}/cuidador';
 
       final response = await _dio.post(url, data: cuidador);
 
