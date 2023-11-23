@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'pages/start_page.dart';
+import 'pages/start_page/start_page.dart';
 import './pages/login_page.dart';
 import 'pages/register_page/register_page.dart';
 import './pages/home_page.dart';
@@ -8,6 +7,7 @@ import './pages/register_medication_page.dart';
 import './pages/more_information_med_page.dart';
 import './pages/register_schelude_page.dart';
 import './pages/more_information_sche_page.dart';
+import 'pages/locations_page/location_page.dart';
 
 class RouteGenerator {
   static const String startPage = '/';
@@ -18,6 +18,7 @@ class RouteGenerator {
   static const String moreInformationMedPage = "/informacao/medicacao";
   static const String registerSchePage = "/cadastro/agendamento";
   static const String moreInformationSchePage = "/informacao/agendamento";
+  static const String locationPage = "/localizacao";
 
   RouteGenerator._() {}
 
@@ -76,6 +77,10 @@ class RouteGenerator {
       case moreInformationSchePage:
         return MaterialPageRoute(
           builder: (_) => const MoreInformationSche(),
+        );
+      case locationPage:
+        return MaterialPageRoute(
+          builder: (_) => const Location(),
         );
       default:
         throw const FormatException("Rota não encontrada");

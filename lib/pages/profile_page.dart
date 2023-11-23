@@ -18,7 +18,7 @@ class Profile extends StatelessWidget {
                 child: const Text(""),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 125, bottom: 35),
+                padding: const EdgeInsets.only(top: 125, bottom: 15),
                 child: Center(
                   child: Image.asset(
                     "assets/img/Avatar.png",
@@ -33,7 +33,30 @@ class Profile extends StatelessWidget {
           const CardProfile("TELEFONE:", "1194135-8569"),
           const CardProfile("E-MAIL:", "teste@gmail.com"),
           Padding(
-            padding: const EdgeInsets.only(top: 85),
+            padding: const EdgeInsets.only(top: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
+                  child: ElevatedButton(
+                    onPressed: () => {
+                      Navigator.of(context).pushNamed("/localizacao")
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 8, 88, 209),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: const Icon(Icons.location_on_sharp),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 35),
             child: Container(
               padding: const EdgeInsets.only(left: 105, right: 105, top: 8),
               width: double.infinity,
