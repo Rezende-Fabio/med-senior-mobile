@@ -31,7 +31,7 @@ class _MedicationsState extends State<Medications> {
   Future<void> _loadMedications() async {
     String userId = context.read<Login>().iduser;
     String token = context.read<Login>().token;
-    
+
     List<dynamic>? result =
         await _medicationsController.consultarMedicamentos(userId, token);
 
@@ -77,15 +77,15 @@ class _MedicationsState extends State<Medications> {
                       Container(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         height: MediaQuery.of(context).size.height * 0.7,
-                        child: ListView.builder(
-                          itemCount: listaMed.length,
-                          itemBuilder: (ctx, index) {
-                            final med = listaMed[index];
-                            return local.isLoading
-                                ? lodingCard(context)
-                                : CardListMedications(med);
-                          },
-                        ),
+                        child: local.isLoading
+                            ? lodingCard(context)
+                            : ListView.builder(
+                                itemCount: listaMed.length,
+                                itemBuilder: (ctx, index) {
+                                  final med = listaMed[index];
+                                  return CardListMedications(med);
+                                },
+                              ),
                       ),
                     ],
                   ),
