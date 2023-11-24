@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:med_senior_mobile/data/models/Medicacao.dart';
 import 'package:page_transition/page_transition.dart';
 import '../pages/register_medication_page.dart';
 
 class CardListMedications extends StatefulWidget {
-  final String fv;
-  const CardListMedications(this.fv, {super.key});
+  final Medicaocao med;
+  const CardListMedications(this.med, {super.key});
 
   @override
   State<CardListMedications> createState() => _CardListMedicationsState();
@@ -40,12 +41,12 @@ class _CardListMedicationsState extends State<CardListMedications> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.fv,
+                          widget.med.nome,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         Text(
-                          "${widget.fv}, Preço",
+                          widget.med.modoAdm,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 146, 146, 146)),
                         ),

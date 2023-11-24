@@ -1,4 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:med_senior_mobile/data/models/Login.dart';
+import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
+import 'package:med_senior_mobile/pages/medications_page/medications_controller.dart';
+import 'package:provider/provider.dart';
 import '../../components/button_footer.dart';
 import '../../components/line.dart';
 import '../../components/card_list_medications.dart';
@@ -12,62 +17,88 @@ class Medications extends StatefulWidget {
 }
 
 class _MedicationsState extends State<Medications> {
-  List<String> lista = ["1", "2", "3", "4", "5", "6"];
-  late bool _isLoading;
+  late MedicationsController _medicationsController;
+  List<dynamic> listaMed = [];
 
   @override
   void initState() {
-    _isLoading = true;
-    Future.delayed(const Duration(seconds: 5), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
     super.initState();
+    _medicationsController =
+        MedicationsController(HttpApiReposirotyMedicacao(dio: Dio()));
+    _loadMedications();
+  }
+
+  Future<void> _loadMedications() async {
+    String userId = context.read<Login>().iduser;
+    String token = context.read<Login>().token;
+    
+    List<dynamic>? result =
+        await _medicationsController.consultarMedicamentos(userId, token);
+
+    if (result != null) {
+      setState(() {
+        listaMed = result;
+      });
+    } else {
+      setState(() {
+        listaMed = [];
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 25),
-            child: Column(
+      child: ChangeNotifierProvider<MedicationsController>(
+        create: (context) => _medicationsController,
+        child: Builder(
+          builder: (context) {
+            final local = context.watch<MedicationsController>();
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Medicações",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
+                SingleChildScrollView(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: Column(
+                    children: [
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Medicações",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                Line(top: 10, right: 0, bottom: 15, left: 0),
-                Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  child: ListView.builder(
-                    itemCount: lista.length,
-                    itemBuilder: (ctx, index) {
-                      final fv = lista[index];
-                      return _isLoading
-                          ? lodingCard(context)
-                          : CardListMedications(fv);
-                    },
+                      Line(top: 10, right: 0, bottom: 15, left: 0),
+                      Container(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        child: ListView.builder(
+                          itemCount: listaMed.length,
+                          itemBuilder: (ctx, index) {
+                            final med = listaMed[index];
+                            return local.isLoading
+                                ? lodingCard(context)
+                                : CardListMedications(med);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                const ButtonFooter(
+                    "Cadastrar Novo Medicamento", "/cadastro/medicacao", {
+                  "title": "Cadastrar Medicamento",
+                  "text": "Cadastrar Medicamento"
+                }),
               ],
-            ),
-          ),
-          const ButtonFooter(
-              "Cadastrar Novo Medicamento", "/cadastro/medicacao", {"title": "Cadastrar Medicamento", "text": "Cadastrar Medicamento"}),
-        ],
+            );
+          },
+        ),
       ),
     );
   }
