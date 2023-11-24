@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/start_page/start_page.dart';
-import './pages/login_page.dart';
+import 'pages/login_page/login_page.dart';
 import 'pages/register_page/register_page.dart';
 import './pages/home_page.dart';
 import './pages/register_medication_page.dart';
