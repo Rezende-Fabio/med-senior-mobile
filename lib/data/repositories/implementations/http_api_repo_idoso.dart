@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:med_senior_mobile/data/repositories/api_repository_idoso.dart';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
@@ -16,11 +17,16 @@ class HttpApiReposirotyIdoso implements ApiRepositoryIdoso {
     try {
       final url = '${FlutterConfig.get('URL_API')}/idoso';
 
-      final response = await _dio.post(url, data: idoso);
+      final response = await _dio
+          .post(url, data: idoso)
+          .timeout(const Duration(seconds: 20));
 
       return Idoso.fromMap(response.data);
     } on DioException catch (dioError) {
       throw ApiException(message: dioError.message ?? "Erro ao inserir");
+    } on TimeoutException {
+      throw ApiException(
+          message: "Servidor fora do ar, tente novamente mais tarde");
     } catch (error, stacktrace) {
       log("Erro ao tentar inserir idoso: ",
           error: error, stackTrace: stacktrace);
@@ -34,11 +40,16 @@ class HttpApiReposirotyIdoso implements ApiRepositoryIdoso {
     try {
       final url = '${FlutterConfig.get('URL_API')}/cuidador';
 
-      final response = await _dio.post(url, data: cuidador);
+      final response = await _dio
+          .post(url, data: cuidador)
+          .timeout(const Duration(seconds: 20));
 
       return Cuidador.fromMap(response.data);
     } on DioException catch (dioError) {
       throw ApiException(message: dioError.message ?? "Erro ao inserir");
+    } on TimeoutException {
+      throw ApiException(
+          message: "Servidor fora do ar, tente novamente mais tarde");
     } catch (error, stacktrace) {
       log("Erro ao tentar inserir cuidador: ",
           error: error, stackTrace: stacktrace);

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -16,12 +17,14 @@ class HttpApiReposirotyLogin implements ApiRepositoryLogin {
       final url =
           '${FlutterConfig.get('URL_API_LOGIN')}/authentication/login/$email/$senha';
 
-      final response = await _dio.get(url);
+      final response = await _dio.get(url).timeout(const Duration(seconds: 20));
 
       return Login.fromMap(response.data);
     } on DioException catch (dioError) {
       throw ApiException(message: dioError.response!.data['errorMessage']['message'] ?? "Erro ao fazer login");
-    } catch (error, stacktrace) {
+    } on TimeoutException {
+      throw ApiException(message: "Servidor fora do ar, tente novamente mais tarde");
+    }catch (error, stacktrace) {
       log("Erro ao fazer login", error: error, stackTrace: stacktrace);
 
       throw ApiException(message: "Erro ao fazer login");
