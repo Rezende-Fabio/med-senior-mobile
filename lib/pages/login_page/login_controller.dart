@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/repositories/api_repository_login.dart';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
 
+import '../../data/models/Login.dart';
+
 class LoginController extends ChangeNotifier {
   final ApiRepositoryLogin apiRepositoryLogin;
 
@@ -13,21 +15,22 @@ class LoginController extends ChangeNotifier {
 
   bool isLoading = false;
 
-  Future<void> login(String email, String senha) async {
+  Future<Login?> login(String email, String senha) async {
     isLoading = true;
     errorApi = "";
     notifyListeners();
 
     try {
-      final idosoPost = await apiRepositoryLogin.getLogin(email, senha);
+      final login = await apiRepositoryLogin.getLogin(email, senha);
       isLoading = false;
       errorApi = "";
       notifyListeners();
-      return idosoPost;
+      return login;
     } on ApiException catch (error) {
       errorApi = error.message;
       isLoading = false;
       notifyListeners();
+      return null;
     }
   }
 }

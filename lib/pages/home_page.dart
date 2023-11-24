@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/bottom_navigator.dart';
-import '../pages/medications_page.dart';
+import 'medications_page/medications_page.dart';
 import '../pages/schedules_page.dart';
 import '../pages/profile_page.dart';
 

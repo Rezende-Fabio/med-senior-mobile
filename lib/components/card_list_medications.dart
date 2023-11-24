@@ -29,7 +29,7 @@ class _CardListMedicationsState extends State<CardListMedications> {
                 padding: const EdgeInsets.only(left: 2, bottom: 15, right: 5),
                 child: SizedBox(
                   width: 55,
-                  child: Image.asset("assets/img/icone_MedSenior_1.png"),
+                  child: Image.asset("assets/img/remedio.png"),
                 ),
               ),
               Expanded(

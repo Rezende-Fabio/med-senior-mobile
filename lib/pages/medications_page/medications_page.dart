@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../components/button_footer.dart';
-import '../components/line.dart';
-import '../components/card_list_medications.dart';
-import '../components/loading.dart';
+import '../../components/button_footer.dart';
+import '../../components/line.dart';
+import '../../components/card_list_medications.dart';
+import '../../components/loading.dart';
 
 class Medications extends StatefulWidget {
   const Medications({super.key});

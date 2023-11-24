@@ -1,12 +1,25 @@
-import '../../utils/formatDate.dart';
+import 'package:flutter/cupertino.dart';
 
-class Login {
-  late String iduser;
-  late String token;
+class Login extends ChangeNotifier {
+  String _iduser;
+  String _token;
 
-  Login(
-      {required this.iduser,
-      required this.token});
+  String get iduser => _iduser;
+  String get token => _token;
+
+  set iduser(String value) {
+    _iduser = value;
+    notifyListeners();
+  }
+
+  set token(String value) {
+    _token = value;
+    notifyListeners();
+  }
+
+  Login({required String iduser, required String token})
+      : _iduser = iduser,
+        _token = token;
 
   factory Login.fromMap(Map<String, dynamic> map) {
     return Login(
