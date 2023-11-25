@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import '../pages/register_medication_page.dart';
 
-class CardListMedications extends StatefulWidget {
+class CardListSchadules extends StatefulWidget {
   final String fv;
-  const CardListMedications(this.fv, {super.key});
+  const CardListSchadules(this.fv, {super.key});
 
   @override
-  State<CardListMedications> createState() => _CardListMedicationsState();
+  State<CardListSchadules> createState() => _CardListSchadulesState();
 }
 
-class _CardListMedicationsState extends State<CardListMedications> {
+class _CardListSchadulesState extends State<CardListSchadules> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       child: GestureDetector(
-        onTap: () => Navigator.of(context).pushNamed("/informacao/medicacao"),
+        onTap: () => Navigator.of(context).pushNamed("/informacao/agendamento"),
         child: Container(
           decoration: const BoxDecoration(
             border: Border(

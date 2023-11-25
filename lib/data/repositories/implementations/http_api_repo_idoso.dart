@@ -4,8 +4,8 @@ import 'package:med_senior_mobile/data/repositories/api_repository_idoso.dart';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
 import 'package:flutter_config/flutter_config.dart';
 import "package:dio/dio.dart";
-import '../../models/Cuidador.dart';
-import '../../models/Idoso.dart';
+import 'package:med_senior_mobile/data/models/Cuidador.dart';
+import 'package:med_senior_mobile/data/models/Idoso.dart';
 
 class HttpApiReposirotyIdoso implements ApiRepositoryIdoso {
   final Dio _dio;
@@ -28,7 +28,7 @@ class HttpApiReposirotyIdoso implements ApiRepositoryIdoso {
       throw ApiException(
           message: "Servidor fora do ar, tente novamente mais tarde");
     } catch (error, stacktrace) {
-      log("Erro ao tentar inserir idoso: ",
+      log("Erro ao inserir",
           error: error, stackTrace: stacktrace);
 
       throw ApiException(message: "Erro ao inserir");

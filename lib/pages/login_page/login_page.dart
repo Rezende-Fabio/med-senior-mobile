@@ -2,20 +2,21 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_login.dart';
 import 'package:provider/provider.dart';
-import '../../components/button_loding.dart';
-import '../../components/form_login.dart';
-import '../../components/button_footer.dart';
+import 'package:med_senior_mobile/components/buttons/button_loding.dart';
+import 'package:med_senior_mobile/components/forms/form_login.dart';
+import 'package:med_senior_mobile/components/buttons/button_footer.dart';
 import 'package:another_flushbar/flushbar.dart';
-import 'login_controller.dart';
+import 'package:med_senior_mobile/data/models/Login.dart';
+import 'package:med_senior_mobile/pages/login_page/login_controller.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginPageState extends State<LoginPage> {
   late LoginController _loginController;
   final _controllerEmail = TextEditingController();
   final _controllerSenha = TextEditingController();
@@ -48,14 +49,18 @@ class _LoginState extends State<Login> {
   Future<void> _login() async {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
-      await _loginController.login(
+      Login? login = await _loginController.login(
           _controllerEmail.text, _controllerSenha.text);
 
       if (_loginController.isLoading == false &&
           _loginController.errorApi.isEmpty) {
         limparForm();
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/home");
+        Login loginProvider = Provider.of<Login>(context, listen: false);
+        loginProvider.iduser = login!.iduser;
+        loginProvider.token = login.token;
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 0});
       } else {
         showToast(
             _loginController.errorApi, const Color.fromARGB(255, 133, 0, 0));

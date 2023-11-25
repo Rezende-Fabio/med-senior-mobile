@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../components/button_footer.dart';
-import '../components/form_register_schedule.dart';
+import 'package:med_senior_mobile/components/buttons/button_footer.dart';
+import 'package:med_senior_mobile/components/forms/form_register_schedule.dart';
 
 class RegisterSchedule extends StatefulWidget {
   final String titlePage;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../components/button_footer.dart';
 
 class BottomNavgator extends StatelessWidget {
   final PageController pageController;
+  final int paginaAtual;
 
-  BottomNavgator(this.pageController);
+  BottomNavgator(this.pageController, this.paginaAtual);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class BottomNavgator extends StatelessWidget {
           label: 'Perfil',
         ),
       ],
-      currentIndex: pageController?.page?.round() ?? 0,
+      currentIndex: pageController?.page?.round() ?? paginaAtual,
       onTap: (index) {
         pageController.jumpToPage(index);
       },

@@ -1,7 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './location_controller.dart';
+import 'package:med_senior_mobile/pages/locations_page/location_controller.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Location extends StatefulWidget {

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import '../pages/register_medication_page.dart';
+import 'package:med_senior_mobile/data/models/Medicacao.dart';
 
-class CardListSchadules extends StatefulWidget {
-  final String fv;
-  const CardListSchadules(this.fv, {super.key});
+class CardListMedications extends StatefulWidget {
+  final Medicacao med;
+  const CardListMedications(this.med, {super.key});
 
   @override
-  State<CardListSchadules> createState() => _CardListSchadulesState();
+  State<CardListMedications> createState() => _CardListMedicationsState();
 }
 
-class _CardListSchadulesState extends State<CardListSchadules> {
+class _CardListMedicationsState extends State<CardListMedications> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       child: GestureDetector(
-        onTap: () => Navigator.of(context).pushNamed("/informacao/agendamento"),
+        onTap: () => Navigator.of(context).pushNamed("/informacao/medicacao",
+            arguments: {"medId": widget.med.id}),
         child: Container(
           decoration: const BoxDecoration(
             border: Border(
@@ -29,7 +29,7 @@ class _CardListSchadulesState extends State<CardListSchadules> {
                 padding: const EdgeInsets.only(left: 2, bottom: 15, right: 5),
                 child: SizedBox(
                   width: 55,
-                  child: Image.asset("assets/img/icone_MedSenior_1.png"),
+                  child: Image.asset("assets/img/remedio.png"),
                 ),
               ),
               Expanded(
@@ -40,12 +40,12 @@ class _CardListSchadulesState extends State<CardListSchadules> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.fv,
+                          widget.med.nome,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         Text(
-                          "${widget.fv}, Preço",
+                          widget.med.modoAdm,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 146, 146, 146)),
                         ),

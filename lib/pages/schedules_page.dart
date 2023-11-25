@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../components/button_footer.dart';
-import '../components/line.dart';
-import '../components/card_list_schedules.dart';
-import '../components/loading.dart';
+import 'package:med_senior_mobile/components/buttons/button_footer.dart';
+import 'package:med_senior_mobile/components/line.dart';
+import 'package:med_senior_mobile/components/cards/card_list_schedules.dart';
+import 'package:med_senior_mobile/components/loadings/loading.dart';
 
 class Schedules extends StatefulWidget {
   const Schedules({super.key});

@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import '../components/card_profile.dart';
+import 'package:med_senior_mobile/components/cards/card_profile.dart';
 import 'package:camera_camera/camera_camera.dart';
-import './preview_page.dart';
+import 'package:med_senior_mobile/pages/preview_page.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
