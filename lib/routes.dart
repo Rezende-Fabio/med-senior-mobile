@@ -4,7 +4,7 @@ import 'pages/login_page/login_page.dart';
 import 'pages/register_page/register_page.dart';
 import './pages/home_page.dart';
 import './pages/register_medication_page.dart';
-import './pages/more_information_med_page.dart';
+import 'pages/more_information_med_page/more_information_med_page.dart';
 import './pages/register_schelude_page.dart';
 import './pages/more_information_sche_page.dart';
 import 'pages/locations_page/location_page.dart';
@@ -56,9 +56,17 @@ class RouteGenerator {
           throw const FormatException("Rota não encontrada");
         }
       case moreInformationMedPage:
-        return MaterialPageRoute(
-          builder: (_) => const MoreInformationMed(),
-        );
+        final Map arguments = settings.arguments as Map;
+
+        if (arguments != null && arguments.containsKey("medId")) {
+          String medId = arguments["medId"];
+
+          return MaterialPageRoute(
+            builder: (_) => MoreInformationMed(medId),
+          );
+        } else {
+          throw const FormatException("Rota não encontrada");
+        }
       case registerSchePage:
         final Map arguments = settings.arguments as Map;
 

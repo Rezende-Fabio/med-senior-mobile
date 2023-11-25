@@ -67,7 +67,7 @@ class Carousel extends StatelessWidget {
             margin: const EdgeInsets.only(right: 5),
             decoration: BoxDecoration(
                 color: _paginaAtual == i["id"]
-                    ? const Color.fromARGB(255, 33, 225, 3)
+                    ? const Color.fromARGB(255, 3, 99, 225)
                     : Colors.grey,
                 borderRadius: const BorderRadius.all(Radius.circular(35.0))),
           );

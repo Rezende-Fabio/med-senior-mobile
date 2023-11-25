@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
 import 'package:page_transition/page_transition.dart';
-import '../pages/register_medication_page.dart';
+import '../../pages/register_medication_page.dart';
 
 class CardListMedications extends StatefulWidget {
-  final Medicaocao med;
+  final Medicacao med;
   const CardListMedications(this.med, {super.key});
 
   @override
@@ -17,7 +17,8 @@ class _CardListMedicationsState extends State<CardListMedications> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       child: GestureDetector(
-        onTap: () => Navigator.of(context).pushNamed("/informacao/medicacao"),
+        onTap: () => Navigator.of(context).pushNamed("/informacao/medicacao",
+            arguments: {"medId": widget.med.id}),
         child: Container(
           decoration: const BoxDecoration(
             border: Border(

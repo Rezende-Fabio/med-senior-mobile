@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../components/button_footer.dart';
-import '../components/form_register_medication.dart';
+import '../components/buttons/button_footer.dart';
+import '../components/forms/form_register_medication.dart';
 import 'package:camera/camera.dart';
 
 class RegisterMedication extends StatefulWidget {

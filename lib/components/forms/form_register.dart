@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../mixins/validations_mixin.dart';
+import '../../mixins/validations_mixin.dart';
 
 class FormRegister extends StatefulWidget {
   final TextEditingController _controllerNome;

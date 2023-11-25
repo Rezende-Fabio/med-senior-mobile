@@ -1,4 +1,4 @@
-class Medicaocao {
+class Medicacao {
   late String id;
   late String nome;
   late String modoAdm;
@@ -7,9 +7,8 @@ class Medicaocao {
   late List<dynamic> falhas;
   late String idosoId;
 
-  Medicaocao(
-      {
-      required this.id,
+  Medicacao(
+      {required this.id,
       required this.nome,
       required this.modoAdm,
       required this.descricao,
@@ -17,9 +16,20 @@ class Medicaocao {
       required this.falhas,
       required this.idosoId});
 
+  factory Medicacao.fromMap(Map<String, dynamic> map) {
+    return Medicacao(
+      id: map["id"],
+      nome: map["nome"],
+      modoAdm: map["modoAdm"],
+      descricao: map["descricao"],
+      estoque: map["estoque"],
+      falhas: map["falhas"],
+      idosoId: map["idosoId"],
+    );
+  }
+
   Map<String, dynamic> fromJsonPost() {
     Map<String, dynamic> json = {
-      "id": id,
       "nome": nome,
       "modoAdm": modoAdm,
       "descricao": descricao,

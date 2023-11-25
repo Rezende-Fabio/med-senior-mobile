@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../mixins/validations_mixin.dart';
+import '../../mixins/validations_mixin.dart';
 
 class FormLogin extends StatefulWidget {
   final TextEditingController _controllerEmail;

@@ -4,10 +4,10 @@ import 'package:med_senior_mobile/data/models/Login.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
 import 'package:med_senior_mobile/pages/medications_page/medications_controller.dart';
 import 'package:provider/provider.dart';
-import '../../components/button_footer.dart';
+import '../../components/buttons/button_footer.dart';
 import '../../components/line.dart';
-import '../../components/card_list_medications.dart';
-import '../../components/loading.dart';
+import '../../components/cards/card_list_medications.dart';
+import '../../components/loadings/loading.dart';
 
 class Medications extends StatefulWidget {
   const Medications({super.key});

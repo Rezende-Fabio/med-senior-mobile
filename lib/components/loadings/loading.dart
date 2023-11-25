@@ -5,7 +5,7 @@ Shimmer lodingCard(context) {
   final List<String> list = ["", "", "", "", "", "", "", "", ""];
   return Shimmer.fromColors(
     baseColor: Colors.grey.shade300,
-    highlightColor: Colors.grey.shade100,
+    highlightColor: const Color.fromRGBO(125, 153, 253, 1.0),
     child: ListView.builder(
       itemCount: list.length,
       itemBuilder: (ctx, index) {

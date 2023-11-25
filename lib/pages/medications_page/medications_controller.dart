@@ -13,11 +13,11 @@ class MedicationsController extends ChangeNotifier {
 
   bool isLoading = true;
 
-  List<Medicaocao> fromList(List<dynamic> list) {
-    List<Medicaocao> listaMed = [];
+  List<Medicacao> fromList(List<dynamic> list) {
+    List<Medicacao> listaMed = [];
     if (list.isNotEmpty) {
       for (var element in list) {
-        Medicaocao med = Medicaocao(
+        Medicacao med = Medicacao(
             id: element["id"],
             nome: element["nome"],
             modoAdm: element["modoAdm"],
@@ -35,7 +35,8 @@ class MedicationsController extends ChangeNotifier {
     }
   }
 
-  Future<List<Medicaocao>?> consultarMedicamentos(String idosoId, String token) async {
+  Future<List<Medicacao>?> consultarMedicamentos(
+      String idosoId, String token) async {
     isLoading = true;
     errorApi = "";
     notifyListeners();

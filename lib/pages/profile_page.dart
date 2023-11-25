@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import '../components/card_profile.dart';
+import '../components/cards/card_profile.dart';
 import 'package:camera_camera/camera_camera.dart';
 import './preview_page.dart';
 
