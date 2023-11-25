@@ -41,6 +41,43 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
     });
   }
 
+  _showModal(String medicacao, String idMed) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          contentTextStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 25),
+          titleTextStyle: const TextStyle(
+              color: Color.fromARGB(255, 1, 1, 1), fontWeight: FontWeight.bold, fontSize: 16),
+          title: const Text("Aviso"),
+          content: Text("Deseja excluir a medicação $medicacao?"),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.black),
+                  child: const Text("NÃO"),
+                ),
+                TextButton(
+                  onPressed: () {
+                  },
+                  style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.red),
+                  child: const Text("SIM"),
+                )
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,11 +118,13 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
                         children: [
                           const CardMoreInformation("Gotas", "40"),
                           Line(top: 10, right: 0, left: 0, bottom: 20),
-                          const CardMoreInformation("Intervalo de Horas", "8 Horas"),
+                          const CardMoreInformation(
+                              "Intervalo de Horas", "8 Horas"),
                           Line(top: 10, right: 0, left: 0, bottom: 20),
                           const CardMoreInformation("Data Final", "24/12/2023"),
                           Line(top: 10, right: 0, left: 0, bottom: 20),
-                          const CardMoreInformation("Horário do primeiro consumo", "08:00"),
+                          const CardMoreInformation(
+                              "Horário do primeiro consumo", "08:00"),
                         ],
                       ),
                     ),
@@ -94,7 +133,14 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
               ],
             ),
             Line(top: 10, right: 10, left: 10, bottom: 15),
-            const ButtonsMoreInformation("/cadastro/agendamento", "Editar Horário", "Editar Horário"),
+            ButtonsMoreInformation(
+              "/cadastro/agendamento",
+              "Editar Horário",
+              "Editar Horário",
+              exclusionMedication: _showModal,
+              textModal: "",
+              idExclusion: "",
+            ),
           ],
         ),
       ),

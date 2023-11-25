@@ -49,8 +49,8 @@ class RouteGenerator {
         } else {
           int paginaAtual = arguments["paginaAtual"];
           return MaterialPageRoute(
-            builder: (_) => Home({}, paginaAtual),
-          );;
+            builder: (_) => Home(const {}, paginaAtual),
+          );
         }
       case registerMedPage:
         final Map arguments = settings.arguments as Map;

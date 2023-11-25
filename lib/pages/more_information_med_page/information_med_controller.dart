@@ -32,4 +32,22 @@ class InformationMedController extends ChangeNotifier {
       return null;
     }
   }
+
+  Future<void> excluirMedicacao(
+      String medicamentoId, String token) async {
+    isLoading = true;
+    errorApi = "";
+    notifyListeners();
+
+    try {
+      await apiRepositoryMedicacao.delete(medicamentoId, token);
+      isLoading = false;
+      errorApi = "";
+      notifyListeners();
+    } on ApiException catch (error) {
+      errorApi = error.message;
+      isLoading = false;
+      notifyListeners();
+    }
+  }
 }

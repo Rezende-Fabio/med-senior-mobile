@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/components/loadings/loding_information_med.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
-import 'package:med_senior_mobile/pages/more_information_med_page/informations_med_controller.dart';
+import 'package:med_senior_mobile/pages/more_information_med_page/information_med_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:med_senior_mobile/components/carousel.dart';
 import 'package:med_senior_mobile/components/line.dart';
@@ -61,10 +61,76 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
     }
   }
 
+  Future<void> _exclusionMedication(String idMed) async {
+    String token = context.read<Login>().token;
+
+    await _informationMedController.excluirMedicacao(
+        widget.medicamentoId, token);
+
+    if (_informationMedController.isLoading == false &&
+          _informationMedController.errorApi.isEmpty) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushNamed("/home", arguments: {
+          "alert": {
+            "message": "Excluído com sucesso!",
+            "cor": const Color.fromARGB(255, 22, 133, 0)
+          },
+          "paginaAtual": 0
+        });
+      } else {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushNamed("/home", arguments: {
+          "alert": {
+            "message": _informationMedController.errorApi,
+            "cor": const Color.fromARGB(255, 133, 0, 0)
+          },
+          "paginaAtual": 0
+        });
+      }
+  }
+
   void _expandirContainer() {
     setState(() {
       isExpanded = !isExpanded;
     });
+  }
+
+  _showModal(String medicacao, String idMed) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          contentTextStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 25),
+          titleTextStyle: const TextStyle(
+              color: Color.fromARGB(255, 1, 1, 1), fontWeight: FontWeight.bold, fontSize: 16),
+          title: const Text("Aviso"),
+          content: Text("Deseja excluir a medicação $medicacao?"),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.black),
+                  child: const Text("NÃO"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    _exclusionMedication(idMed);
+                  },
+                  style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.red),
+                  child: const Text("SIM"),
+                )
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -136,7 +202,10 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
                                     child: AnimatedContainer(
                                       duration: const Duration(seconds: 1),
                                       height: isExpanded ? 170 : 40,
-                                      color: isExpanded ? Colors.grey.withOpacity(0.2) : const Color.fromARGB(255, 250, 250, 250),
+                                      color: isExpanded
+                                          ? Colors.grey.withOpacity(0.2)
+                                          : const Color.fromARGB(
+                                              255, 250, 250, 250),
                                       child: SingleChildScrollView(
                                         physics: isExpanded
                                             ? const BouncingScrollPhysics()
@@ -188,11 +257,14 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
                                     ),
                                   ),
                                   ButtonsMoreInformation(
-                                    "/cadastro/medicacao",
-                                    "Editar Medicamento",
-                                    "Editar Medicamento",
-                                    medicacao: medicacao
-                                  ),
+                                      "/cadastro/medicacao",
+                                      "Editar Medicamento",
+                                      "Editar Medicamento",
+                                      medicacao: medicacao,
+                                      exclusionMedication: _showModal,
+                                      textModal: medicacao!.nome,
+                                      idExclusion: medicacao!.id,
+                                      ),
                                 ],
                               ),
                             ],

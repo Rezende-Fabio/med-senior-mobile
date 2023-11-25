@@ -7,8 +7,11 @@ class ButtonsMoreInformation extends StatefulWidget {
   final String textPage;
   final String titlePage;
   final Medicacao? medicacao;
+  final Function exclusionMedication;
+  final String textModal;
+  final String idExclusion;
   const ButtonsMoreInformation(this.page, this.titlePage, this.textPage,
-      {super.key, this.medicacao});
+      {super.key, this.medicacao, required this.exclusionMedication, required this.textModal, required this.idExclusion});
 
   @override
   State<ButtonsMoreInformation> createState() => _ButtonsMoreInformationState();
@@ -28,7 +31,7 @@ class _ButtonsMoreInformationState extends State<ButtonsMoreInformation> {
             decoration: BoxDecoration(
                 color: Colors.red, borderRadius: BorderRadius.circular(5)),
             child: IconButton(
-              onPressed: () => {},
+              onPressed: () => {widget.exclusionMedication(widget.textModal, widget.idExclusion)},
               icon: const Icon(
                 FontAwesomeIcons.trash,
                 size: 28,
