@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/pages/start_page/start_controller.dart';
 import 'package:provider/provider.dart';
-import '../../components/alert_start_page.dart';
-import '../../components/buttons/button_footer.dart';
+import 'package:med_senior_mobile/components/alert_start_page.dart';
+import 'package:med_senior_mobile/components/buttons/button_footer.dart';
 
 class Start extends StatefulWidget {
   const Start({super.key});

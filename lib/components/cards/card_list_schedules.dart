@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import '../../pages/register_medication_page.dart';
 
 class CardListSchadules extends StatefulWidget {
   final String fv;

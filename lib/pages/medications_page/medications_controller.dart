@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/repositories/api_repository_medicacao.dart';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
-import '../../data/models/Medicacao.dart';
+import 'package:med_senior_mobile/data/models/Medicacao.dart';
 
 class MedicationsController extends ChangeNotifier {
   final ApiRepositoryMedicacao apiRepositoryMedicacao;

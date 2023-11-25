@@ -1,28 +1,28 @@
-import 'package:med_senior_mobile/data/repositories/api_repository_idoso.dart';
+import 'package:flutter/material.dart';
+import 'package:med_senior_mobile/data/repositories/api_repository_medicacao.dart';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
 
-class RegisterController {
-  final ApiRepositoryIdoso apiRepositoryIdoso;
+class ResgisterMedMedController extends ChangeNotifier {
+  final ApiRepositoryMedicacao apiRepositoryMedicacao;
   final Function _loadingScreen;
 
-  RegisterController(this.apiRepositoryIdoso, this._loadingScreen);
+  ResgisterMedMedController(this.apiRepositoryMedicacao, this._loadingScreen);
 
-  // Caso de erro ao tentar inserir o idoso
+  // Caso de erro ao fazer login
   String errorApi = "";
 
   bool isLoading = false;
 
-  Future<void> registerIdoso(Map idoso) async {
+  Future<void> inserirMedicamento(Map medicamento, String token) async {
     isLoading = true;
     errorApi = "";
     _loadingScreen(isLoading, errorApi);
 
     try {
-      final idosoPost = await apiRepositoryIdoso.postIdoso(idoso);
+      await apiRepositoryMedicacao.post(medicamento, token);
       isLoading = false;
       errorApi = "";
       _loadingScreen(isLoading, errorApi);
-      return idosoPost;
     } on ApiException catch (error) {
       errorApi = error.message;
       isLoading = false;
@@ -30,17 +30,17 @@ class RegisterController {
     }
   }
 
-  Future<void> registerCuidador(Map cuidador) async {
+  Future<void> editarMedicamento(
+      Map medicamento, String medicamentoId, String token) async {
     isLoading = true;
     errorApi = "";
     _loadingScreen(isLoading, errorApi);
 
     try {
-      final cuidadorPost = await apiRepositoryIdoso.postCuidador(cuidador);
+      await apiRepositoryMedicacao.put(medicamento, medicamentoId, token);
       isLoading = false;
       errorApi = "";
       _loadingScreen(isLoading, errorApi);
-      return cuidadorPost;
     } on ApiException catch (error) {
       errorApi = error.message;
       isLoading = false;

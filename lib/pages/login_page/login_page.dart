@@ -2,12 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_login.dart';
 import 'package:provider/provider.dart';
-import '../../components/buttons/button_loding.dart';
-import '../../components/forms/form_login.dart';
-import '../../components/buttons/button_footer.dart';
+import 'package:med_senior_mobile/components/buttons/button_loding.dart';
+import 'package:med_senior_mobile/components/forms/form_login.dart';
+import 'package:med_senior_mobile/components/buttons/button_footer.dart';
 import 'package:another_flushbar/flushbar.dart';
-import '../../data/models/Login.dart';
-import 'login_controller.dart';
+import 'package:med_senior_mobile/data/models/Login.dart';
+import 'package:med_senior_mobile/pages/login_page/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
         loginProvider.iduser = login!.iduser;
         loginProvider.token = login.token;
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/home");
+        Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 0});
       } else {
         showToast(
             _loginController.errorApi, const Color.fromARGB(255, 133, 0, 0));

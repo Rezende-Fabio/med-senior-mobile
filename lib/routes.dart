@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'pages/start_page/start_page.dart';
-import 'pages/login_page/login_page.dart';
-import 'pages/register_page/register_page.dart';
-import './pages/home_page.dart';
-import './pages/register_medication_page.dart';
-import 'pages/more_information_med_page/more_information_med_page.dart';
-import './pages/register_schelude_page.dart';
-import './pages/more_information_sche_page.dart';
-import 'pages/locations_page/location_page.dart';
+import 'package:med_senior_mobile/data/models/Medicacao.dart';
+import 'package:med_senior_mobile/pages/start_page/start_page.dart';
+import 'package:med_senior_mobile/pages/login_page/login_page.dart';
+import 'package:med_senior_mobile/pages/register_page/register_page.dart';
+import 'package:med_senior_mobile/pages/home_page.dart';
+import 'package:med_senior_mobile/pages/resgister_medication/register_medication_page.dart';
+import 'package:med_senior_mobile/pages/more_information_med_page/more_information_med_page.dart';
+import 'package:med_senior_mobile/pages/register_schelude_page.dart';
+import 'package:med_senior_mobile/pages/more_information_sche_page.dart';
+import 'package:med_senior_mobile/pages/locations_page/location_page.dart';
 
 class RouteGenerator {
   static const String startPage = '/';
@@ -20,7 +21,7 @@ class RouteGenerator {
   static const String moreInformationSchePage = "/informacao/agendamento";
   static const String locationPage = "/localizacao";
 
-  RouteGenerator._() {}
+  RouteGenerator._();
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -37,20 +38,34 @@ class RouteGenerator {
           builder: (_) => const Register(),
         );
       case homePage:
-        return MaterialPageRoute(
-          builder: (_) => const Home(),
-        );
+        final Map arguments = settings.arguments as Map;
+        if (arguments.containsKey("alert")) {
+          Map alert = arguments["alert"];
+          int paginaAtual = arguments["paginaAtual"];
+
+          return MaterialPageRoute(
+            builder: (_) => Home(alert, paginaAtual),
+          );
+        } else {
+          int paginaAtual = arguments["paginaAtual"];
+          return MaterialPageRoute(
+            builder: (_) => Home({}, paginaAtual),
+          );;
+        }
       case registerMedPage:
         final Map arguments = settings.arguments as Map;
 
         if (arguments != null &&
             arguments.containsKey("title") &&
-            arguments.containsKey("text")) {
+            arguments.containsKey("text") &&
+            arguments.containsKey("medicacao")) {
           String titlePage = arguments["title"];
           String textButton = arguments["text"];
+          Medicacao? medicacao = arguments["medicacao"];
 
           return MaterialPageRoute(
-            builder: (_) => RegisterMedication(titlePage, textButton),
+            builder: (_) =>
+                RegisterMedication(titlePage, textButton, medicacao),
           );
         } else {
           throw const FormatException("Rota não encontrada");

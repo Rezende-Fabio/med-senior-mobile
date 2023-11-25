@@ -1,9 +1,7 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/repositories/api_repository_login.dart';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
-
-import '../../data/models/Login.dart';
+import 'package:med_senior_mobile/data/models/Login.dart';
 
 class LoginController extends ChangeNotifier {
   final ApiRepositoryLogin apiRepositoryLogin;

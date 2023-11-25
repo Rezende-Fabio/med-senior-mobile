@@ -1,15 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:med_senior_mobile/components/loadings/loding_information_med.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
 import 'package:med_senior_mobile/pages/more_information_med_page/informations_med_controller.dart';
 import 'package:provider/provider.dart';
-import '../../components/carousel.dart';
-import '../../components/line.dart';
-import '../../components/cards/card_more_informations.dart';
-import '../../components/buttons/buttons_more_information.dart';
+import 'package:med_senior_mobile/components/carousel.dart';
+import 'package:med_senior_mobile/components/line.dart';
+import 'package:med_senior_mobile/components/cards/card_more_informations.dart';
+import 'package:med_senior_mobile/components/buttons/buttons_more_information.dart';
 import 'package:med_senior_mobile/data/models/Login.dart';
 
 class MoreInformationMed extends StatefulWidget {
@@ -137,6 +136,7 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
                                     child: AnimatedContainer(
                                       duration: const Duration(seconds: 1),
                                       height: isExpanded ? 170 : 40,
+                                      color: isExpanded ? Colors.grey.withOpacity(0.2) : const Color.fromARGB(255, 250, 250, 250),
                                       child: SingleChildScrollView(
                                         physics: isExpanded
                                             ? const BouncingScrollPhysics()
@@ -187,10 +187,12 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
                                       ),
                                     ),
                                   ),
-                                  const ButtonsMoreInformation(
-                                      "/cadastro/medicacao",
-                                      "Editar Medicamento",
-                                      "Editar Medicamento"),
+                                  ButtonsMoreInformation(
+                                    "/cadastro/medicacao",
+                                    "Editar Medicamento",
+                                    "Editar Medicamento",
+                                    medicacao: medicacao
+                                  ),
                                 ],
                               ),
                             ],

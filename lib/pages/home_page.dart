@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
-import '../components/bottom_navigator.dart';
-import 'medications_page/medications_page.dart';
-import '../pages/schedules_page.dart';
-import '../pages/profile_page.dart';
+import 'package:med_senior_mobile/components/bottom_navigator.dart';
+import 'package:med_senior_mobile/pages/medications_page/medications_page.dart';
+import 'package:med_senior_mobile/pages/schedules_page.dart';
+import 'package:med_senior_mobile/pages/profile_page.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final Map? alertMedication;
+  final int paginaAtual;
+  const Home(this.alertMedication, this.paginaAtual, {super.key});
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  final pageController = PageController(initialPage: 0);
+  late PageController pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController(initialPage: widget.paginaAtual);
+  }
 
   @override
   void dispose() {
     super.dispose();
-    pageController.dispose();
+    pageController.dispose(); 
   }
 
   @override
@@ -26,16 +34,16 @@ class _HomeState extends State<Home> {
       body: PageView(
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          Medications(),
-          Schedules(),
-          Profile()
+        children: [
+          Medications(widget.alertMedication),
+          const Schedules(),
+          const Profile(),
         ],
       ),
       bottomNavigationBar: AnimatedBuilder(
           animation: pageController,
           builder: (context, snapshot) {
-            return BottomNavgator(pageController);
+            return BottomNavgator(pageController, widget.paginaAtual);
           }),
     );
   }

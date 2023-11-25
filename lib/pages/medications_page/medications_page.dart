@@ -4,13 +4,15 @@ import 'package:med_senior_mobile/data/models/Login.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
 import 'package:med_senior_mobile/pages/medications_page/medications_controller.dart';
 import 'package:provider/provider.dart';
-import '../../components/buttons/button_footer.dart';
-import '../../components/line.dart';
-import '../../components/cards/card_list_medications.dart';
-import '../../components/loadings/loading.dart';
+import 'package:med_senior_mobile/components/buttons/button_footer.dart';
+import 'package:med_senior_mobile/components/line.dart';
+import 'package:med_senior_mobile/components/cards/card_list_medications.dart';
+import 'package:med_senior_mobile/components/loadings/loading.dart';
+import 'package:another_flushbar/flushbar.dart';
 
 class Medications extends StatefulWidget {
-  const Medications({super.key});
+  final Map? alert;
+  const Medications(this.alert, {super.key});
 
   @override
   State<Medications> createState() => _MedicationsState();
@@ -26,7 +28,24 @@ class _MedicationsState extends State<Medications> {
     _medicationsController =
         MedicationsController(HttpApiReposirotyMedicacao(dio: Dio()));
     _loadMedications();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (widget.alert!.isNotEmpty) {
+        showToast(widget.alert!["message"], widget.alert!["cor"]);
+      }
+    });
   }
+
+  void showToast(String message, Color cor) => Flushbar(
+        duration: const Duration(seconds: 5),
+        title: "Aviso",
+        titleSize: 25,
+        message: message,
+        messageSize: 15,
+        flushbarPosition: FlushbarPosition.TOP,
+        margin: const EdgeInsets.only(top: 35, left: 10, right: 10),
+        borderRadius: BorderRadius.circular(25),
+        backgroundColor: cor,
+      )..show(context);
 
   Future<void> _loadMedications() async {
     String userId = context.read<Login>().iduser;
@@ -93,7 +112,8 @@ class _MedicationsState extends State<Medications> {
                 const ButtonFooter(
                     "Cadastrar Novo Medicamento", "/cadastro/medicacao", {
                   "title": "Cadastrar Medicamento",
-                  "text": "Cadastrar Medicamento"
+                  "text": "Cadastrar Medicamento",
+                  "medicacao": null
                 }),
               ],
             );

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import './preview_page.dart';
+import 'package:med_senior_mobile/pages/preview_page.dart';
 
 class Preview extends StatelessWidget {
   File file;

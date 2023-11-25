@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/repositories/api_repository_medicacao.dart';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
-import '../../data/models/Medicacao.dart';
+import 'package:med_senior_mobile/data/models/Medicacao.dart';
 
 class InformationMedController extends ChangeNotifier {
   final ApiRepositoryMedicacao apiRepositoryMedicacao;
@@ -14,13 +14,13 @@ class InformationMedController extends ChangeNotifier {
   bool isLoading = true;
 
   Future<Medicacao?> consultarMedicamento(
-      String medicamnetoId, String token) async {
+      String medicamentoId, String token) async {
     isLoading = true;
     errorApi = "";
     notifyListeners();
 
     try {
-      final medicacao = await apiRepositoryMedicacao.get(medicamnetoId, token);
+      final medicacao = await apiRepositoryMedicacao.get(medicamentoId, token);
       isLoading = false;
       errorApi = "";
       notifyListeners();

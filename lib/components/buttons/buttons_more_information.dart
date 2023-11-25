@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:med_senior_mobile/data/models/Medicacao.dart';
 
 class ButtonsMoreInformation extends StatefulWidget {
   final String page;
   final String textPage;
   final String titlePage;
-  const ButtonsMoreInformation(this.page, this.titlePage, this.textPage, {super.key});
+  final Medicacao? medicacao;
+  const ButtonsMoreInformation(this.page, this.titlePage, this.textPage,
+      {super.key, this.medicacao});
 
   @override
   State<ButtonsMoreInformation> createState() => _ButtonsMoreInformationState();
@@ -26,8 +30,9 @@ class _ButtonsMoreInformationState extends State<ButtonsMoreInformation> {
             child: IconButton(
               onPressed: () => {},
               icon: const Icon(
-                Icons.restore_from_trash_rounded,
+                FontAwesomeIcons.trash,
                 size: 28,
+                color: Colors.white,
               ),
             ),
           ),
@@ -36,11 +41,11 @@ class _ButtonsMoreInformationState extends State<ButtonsMoreInformation> {
             height: 50,
             child: ElevatedButton(
               onPressed: () => {
-                Navigator.of(context).pushNamed(widget.page,
-                    arguments: {
-                      "title": widget.titlePage,
-                      "text": widget.textPage
-                    })
+                Navigator.of(context).pushNamed(widget.page, arguments: {
+                  "title": widget.titlePage,
+                  "text": widget.textPage,
+                  "medicacao": widget.medicacao
+                })
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromRGBO(85, 101, 238, 1.0),

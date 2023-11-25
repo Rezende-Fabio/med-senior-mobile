@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
-import 'package:page_transition/page_transition.dart';
-import '../../pages/register_medication_page.dart';
 
 class CardListMedications extends StatefulWidget {
   final Medicacao med;

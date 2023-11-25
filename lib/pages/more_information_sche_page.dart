@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../components/carousel.dart';
-import '../components/line.dart';
-import '../components/cards/card_more_informations.dart';
-import '../components/buttons/buttons_more_information.dart';
+import 'package:med_senior_mobile/components/carousel.dart';
+import 'package:med_senior_mobile/components/line.dart';
+import 'package:med_senior_mobile/components/cards/card_more_informations.dart';
+import 'package:med_senior_mobile/components/buttons/buttons_more_information.dart';
 
 class MoreInformationSche extends StatefulWidget {
   const MoreInformationSche({super.key});

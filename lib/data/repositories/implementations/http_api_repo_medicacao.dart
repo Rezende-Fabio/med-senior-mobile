@@ -5,7 +5,6 @@ import 'package:med_senior_mobile/data/repositories/api_repository_medicacao.dar
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
 import 'package:flutter_config/flutter_config.dart';
 import "package:dio/dio.dart";
-import '../../models/Login.dart';
 
 class HttpApiReposirotyMedicacao implements ApiRepositoryMedicacao {
   final Dio _dio;
@@ -65,14 +64,50 @@ class HttpApiReposirotyMedicacao implements ApiRepositoryMedicacao {
   }
 
   @override
-  Future post(Map medicacao, String token) {
-    // TODO: implement post
-    throw UnimplementedError();
+  Future post(Map medicacao, String token) async {
+    try {
+      final url = '${FlutterConfig.get('URL_API')}/medicacao';
+      _dio.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _dio
+          .post(url, data: medicacao)
+          .timeout(const Duration(seconds: 20));
+
+      return Medicacao.fromMap(response.data);
+    } on DioException catch (dioError) {
+      throw ApiException(message: dioError.message ?? "Erro ao inserir");
+    } on TimeoutException {
+      throw ApiException(
+          message: "Servidor fora do ar, tente novamente mais tarde");
+    } catch (error, stacktrace) {
+      log("Erro ao inserir",
+          error: error, stackTrace: stacktrace);
+
+      throw ApiException(message: "Erro ao inserir");
+    }
   }
 
   @override
-  Future put(Map medicacao, String medicacaoId, String token) {
-    // TODO: implement put
-    throw UnimplementedError();
+  Future put(Map medicacao, String medicacaoId, String token) async{
+     try {
+      final url = '${FlutterConfig.get('URL_API')}/medicacao/$medicacaoId';
+      _dio.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _dio
+          .put(url, data: medicacao)
+          .timeout(const Duration(seconds: 20));
+
+      return Medicacao.fromMap(response.data);
+    } on DioException catch (dioError) {
+      throw ApiException(message: dioError.message ?? "Erro ao editar");
+    } on TimeoutException {
+      throw ApiException(
+          message: "Servidor fora do ar, tente novamente mais tarde");
+    } catch (error, stacktrace) {
+      log("Erro ao editar",
+          error: error, stackTrace: stacktrace);
+
+      throw ApiException(message: "Erro ao editar");
+    }
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:provider/provider.dart';
-import './routes.dart';
-import 'data/models/Login.dart';
+import 'package:med_senior_mobile/routes.dart';
+import 'package:med_senior_mobile/data/models/Login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

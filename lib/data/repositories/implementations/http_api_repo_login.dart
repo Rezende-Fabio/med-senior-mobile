@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
 import 'package:flutter_config/flutter_config.dart';
-import '../api_repository_login.dart';
+import 'package:med_senior_mobile/data/repositories/api_repository_login.dart';
 import "package:dio/dio.dart";
-import '../../models/Login.dart';
+import 'package:med_senior_mobile/data/models/Login.dart';
 
 class HttpApiReposirotyLogin implements ApiRepositoryLogin {
   final Dio _dio;
