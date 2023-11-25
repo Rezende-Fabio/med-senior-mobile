@@ -9,7 +9,7 @@ import 'package:med_senior_mobile/components/carousel.dart';
 import 'package:med_senior_mobile/components/line.dart';
 import 'package:med_senior_mobile/components/cards/card_more_informations.dart';
 import 'package:med_senior_mobile/components/buttons/buttons_more_information.dart';
-import 'package:med_senior_mobile/data/models/Login.dart';
+import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 
 class MoreInformationMed extends StatefulWidget {
   final String medicamentoId;
@@ -49,7 +49,7 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
   }
 
   Future<void> _loadMedication() async {
-    String token = context.read<Login>().token;
+    String token = context.read<LoginProvider>().token;
 
     Medicacao? result = await _informationMedController.consultarMedicamento(
         widget.medicamentoId, token);
@@ -62,7 +62,7 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
   }
 
   Future<void> _exclusionMedication(String idMed) async {
-    String token = context.read<Login>().token;
+    String token = context.read<LoginProvider>().token;
 
     await _informationMedController.excluirMedicacao(
         widget.medicamentoId, token);

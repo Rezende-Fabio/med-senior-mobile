@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:med_senior_mobile/data/models/Idoso.dart';
+import 'package:med_senior_mobile/data/models/IdosoProvider.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_login.dart';
 import 'package:provider/provider.dart';
 import 'package:med_senior_mobile/components/buttons/button_loding.dart';
 import 'package:med_senior_mobile/components/forms/form_login.dart';
 import 'package:med_senior_mobile/components/buttons/button_footer.dart';
 import 'package:another_flushbar/flushbar.dart';
-import 'package:med_senior_mobile/data/models/Login.dart';
+import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 import 'package:med_senior_mobile/pages/login_page/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -49,16 +51,28 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _login() async {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
-      Login? login = await _loginController.login(
+      LoginProvider? login = await _loginController.login(
           _controllerEmail.text, _controllerSenha.text);
 
       if (_loginController.isLoading == false &&
           _loginController.errorApi.isEmpty) {
         limparForm();
         // ignore: use_build_context_synchronously
-        Login loginProvider = Provider.of<Login>(context, listen: false);
+        LoginProvider loginProvider =
+            Provider.of<LoginProvider>(context, listen: false);
         loginProvider.iduser = login!.iduser;
         loginProvider.token = login.token;
+
+        IdosoProvider? user =
+            await _loginController.getUser(login.iduser, login.token);
+        // ignore: unused_local_variable
+        IdosoProvider userProvider =
+            Provider.of<IdosoProvider>(context, listen: false);
+        userProvider.nome = user!.nome;
+        userProvider.email = user.email;
+        userProvider.codigo = user.codigo;
+        userProvider.telefone = user.telefone;
+
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 0});
       } else {

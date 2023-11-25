@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:med_senior_mobile/data/models/IdosoProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:med_senior_mobile/routes.dart';
-import 'package:med_senior_mobile/data/models/Login.dart';
+import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterConfig.loadEnvVariables();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider<Login>(
-        create: (_) => Login(iduser: '', token: ''),
+      ChangeNotifierProvider<LoginProvider>(
+        create: (_) => LoginProvider(iduser: "", token: ""),
+      ),
+      ChangeNotifierProvider<IdosoProvider>(
+        create: (_) => IdosoProvider(nome: "", telefone: "", codigo: "", email: ""),
       )
     ],
     child: const MedSenior(),

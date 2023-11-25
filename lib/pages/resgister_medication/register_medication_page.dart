@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/components/buttons/button_loding.dart';
-import 'package:med_senior_mobile/data/models/Login.dart';
+import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
 import 'package:med_senior_mobile/pages/resgister_medication/resgister_med_controller.dart';
@@ -72,8 +72,8 @@ class _RegisterMedicationState extends State<RegisterMedication> {
 
   Future<void> _save() async {
     if (_formKey.currentState!.validate()) {
-      String userId = context.read<Login>().iduser;
-      String token = context.read<Login>().token;
+      String userId = context.read<LoginProvider>().iduser;
+      String token = context.read<LoginProvider>().token;
       String message = "";
 
       if (widget.medicacao == null) {

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class Login extends ChangeNotifier {
+class LoginProvider extends ChangeNotifier {
   String _iduser;
   String _token;
 
@@ -17,12 +17,12 @@ class Login extends ChangeNotifier {
     notifyListeners();
   }
 
-  Login({required String iduser, required String token})
+  LoginProvider({required String iduser, required String token})
       : _iduser = iduser,
         _token = token;
 
-  factory Login.fromMap(Map<String, dynamic> map) {
-    return Login(
+  factory LoginProvider.fromMap(Map<String, dynamic> map) {
+    return LoginProvider(
       iduser: map["data"]["idUsuario"],
       token: map["data"]["access_token"],
     );

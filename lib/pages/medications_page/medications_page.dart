@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:med_senior_mobile/data/models/Login.dart';
+import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
 import 'package:med_senior_mobile/pages/medications_page/medications_controller.dart';
 import 'package:provider/provider.dart';
@@ -48,8 +48,8 @@ class _MedicationsState extends State<Medications> {
       )..show(context);
 
   Future<void> _loadMedications() async {
-    String userId = context.read<Login>().iduser;
-    String token = context.read<Login>().token;
+    String userId = context.read<LoginProvider>().iduser;
+    String token = context.read<LoginProvider>().token;
 
     List<dynamic>? result =
         await _medicationsController.consultarMedicamentos(userId, token);
