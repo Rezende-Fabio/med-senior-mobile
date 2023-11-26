@@ -68,15 +68,15 @@ class HttpApiReposirotyMedicacao implements ApiRepositoryMedicacao {
       return response.data;
     } on DioException catch (dioError) {
       throw ApiException(
-          message: dioError.message ?? "Erro ao tentar consultar as medicaões");
+          message: dioError.message ?? "Erro ao tentar consultar as medicões");
     } on TimeoutException {
       throw ApiException(
           message: "Servidor fora do ar, tente novamente mais tarde");
     } catch (error, stacktrace) {
-      log("Erro ao tentar consultar as medicaões",
+      log("Erro ao tentar consultar as medicões",
           error: error, stackTrace: stacktrace);
 
-      throw ApiException(message: "Erro ao tentar consultar as medicaões");
+      throw ApiException(message: "Erro ao tentar consultar as medicões");
     }
   }
 

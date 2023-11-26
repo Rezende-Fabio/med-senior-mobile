@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:med_senior_mobile/data/models/UsoMedicacao.dart';
 
 class CardListSchadules extends StatefulWidget {
-  final String fv;
-  const CardListSchadules(this.fv, {super.key});
+  final UsoMedicacao usoMed;
+  const CardListSchadules(this.usoMed, {super.key});
 
   @override
   State<CardListSchadules> createState() => _CardListSchadulesState();
@@ -27,7 +28,7 @@ class _CardListSchadulesState extends State<CardListSchadules> {
                 padding: const EdgeInsets.only(left: 2, bottom: 15, right: 5),
                 child: SizedBox(
                   width: 55,
-                  child: Image.asset("assets/img/icone_MedSenior_1.png"),
+                  child: Image.asset("assets/img/agendamento.png"),
                 ),
               ),
               Expanded(
@@ -38,12 +39,12 @@ class _CardListSchadulesState extends State<CardListSchadules> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.fv,
+                          widget.usoMed.medicacao.nome,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         Text(
-                          "${widget.fv}, Preço",
+                          widget.usoMed.medicacao.modoAdm,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 146, 146, 146)),
                         ),
