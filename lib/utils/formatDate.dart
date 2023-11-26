@@ -9,6 +9,7 @@ String dateStringToDateTimeString(String dataString) {
   return formattedString;
 }
 
+
 DateTime dateTimeStringToDateTime(String dataString) {
   DateFormat outputFormat = DateFormat("yyyy-MM-dd 00:00:00.000'Z'");
   DateTime parsedDate = outputFormat.parse(dataString.replaceFirst("T", " "));
@@ -33,3 +34,13 @@ String dateTimeToDateTimeString(DateTime data) {
 }
 
 
+String dateTimeToTimeString(DateTime dateTime) {
+  DateFormat formatoHora = DateFormat('HH:mm');
+  return formatoHora.format(dateTime);
+}
+
+
+String dateTimeToDateString(DateTime dateTime) {
+  DateFormat formatoData = DateFormat('dd/MM/yyyy');
+  return formatoData.format(dateTime);
+}

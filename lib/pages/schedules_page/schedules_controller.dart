@@ -19,6 +19,7 @@ class SchedulesController extends ChangeNotifier {
     if (list.isNotEmpty) {
       for (var element in list) {
         UsoMedicacao usoMed = UsoMedicacao(
+          id: element["id"],
           dosagem: element["dosagem"],
           intervalo: element["intervalo"],
           horaInicial: element["horaInicial"],
