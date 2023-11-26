@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:med_senior_mobile/components/buttons/buttons_more_information_sche.dart';
 import 'package:med_senior_mobile/components/carousel.dart';
 import 'package:med_senior_mobile/components/line.dart';
 import 'package:med_senior_mobile/components/cards/card_more_informations.dart';
-import 'package:med_senior_mobile/components/buttons/buttons_more_information.dart';
 import 'package:med_senior_mobile/components/loadings/loding_information_sche.dart';
 import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 import 'package:med_senior_mobile/data/models/UsoMedicacao.dart';
@@ -194,13 +194,14 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
                           ],
                         ),
                         Line(top: 10, right: 10, left: 10, bottom: 15),
-                        ButtonsMoreInformation(
+                        ButtonsMoreInformationSche(
                           "/cadastro/agendamento",
                           "Editar Horário",
                           "Editar Horário",
                           exclusionMedication: _showModal,
                           textModal: usoMedicacao!.medicacao.nome,
                           idExclusion: usoMedicacao!.id,
+                          medicacao: usoMedicacao,
                         ),
                       ],
                     );

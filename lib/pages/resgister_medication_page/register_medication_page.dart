@@ -4,7 +4,7 @@ import 'package:med_senior_mobile/components/buttons/button_loding.dart';
 import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
-import 'package:med_senior_mobile/pages/resgister_medication/resgister_med_controller.dart';
+import 'package:med_senior_mobile/pages/resgister_medication_page/resgister_med_controller.dart';
 import 'package:med_senior_mobile/components/buttons/button_footer.dart';
 import 'package:med_senior_mobile/components/forms/form_register_medication.dart';
 import 'package:another_flushbar/flushbar.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
 
-class ButtonsMoreInformation extends StatefulWidget {
+class ButtonsMoreInformationMed extends StatefulWidget {
   final String page;
   final String textPage;
   final String titlePage;
@@ -10,14 +10,14 @@ class ButtonsMoreInformation extends StatefulWidget {
   final Function exclusionMedication;
   final String textModal;
   final String idExclusion;
-  const ButtonsMoreInformation(this.page, this.titlePage, this.textPage,
+  const ButtonsMoreInformationMed(this.page, this.titlePage, this.textPage,
       {super.key, this.medicacao, required this.exclusionMedication, required this.textModal, required this.idExclusion});
 
   @override
-  State<ButtonsMoreInformation> createState() => _ButtonsMoreInformationState();
+  State<ButtonsMoreInformationMed> createState() => _ButtonsMoreInformationMedState();
 }
 
-class _ButtonsMoreInformationState extends State<ButtonsMoreInformation> {
+class _ButtonsMoreInformationMedState extends State<ButtonsMoreInformationMed> {
   @override
   Widget build(BuildContext context) {
     return Padding(

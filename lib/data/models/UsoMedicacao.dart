@@ -11,34 +11,49 @@ class UsoMedicacao {
   late String medId;
   late Medicacao medicacao;
 
-  UsoMedicacao(
-      {required this.id,
-      required this.dosagem,
-      required this.intervalo,
-      required horaInicial,
-      required dataFinal,
-      required this.idosoId,
-      required this.medId,
-      required this.medicacao}) {
+  UsoMedicacao({
+    required this.id,
+    required this.dosagem,
+    required this.intervalo,
+    required horaInicial,
+    required dataFinal,
+    required this.idosoId,
+  }) {
     this.horaInicial = dateTimeStringToDateTimeWithTime(horaInicial);
     this.dataFinal = dateTimeStringToDateTimeWithTime(dataFinal);
   }
 
+  void setMedId(String medId) {
+    this.medId = medId;
+  }
+
+  void setMed(Medicacao medicacao) {
+    this.medicacao = medicacao;
+  }
+
   factory UsoMedicacao.fromMap(Map<String, dynamic> map) {
-    return UsoMedicacao(
+    UsoMedicacao usoMed = UsoMedicacao(
       id: map["id"],
       dosagem: map["dosagem"],
       intervalo: map["intervalo"],
       horaInicial: map["horaInicial"],
       dataFinal: map["dataFinal"],
       idosoId: map["idosoId"],
-      medId: map["medId"],
-      medicacao: Medicacao.fromMap(map["medicacao"]),
     );
+    usoMed.setMed(Medicacao.fromMap(map["medicacao"]));
+    usoMed.setMedId(map["medId"]);
+    return usoMed;
   }
 
   Map<String, dynamic> fromJsonPost() {
-    Map<String, dynamic> json = {"idosoId": idosoId};
+    Map<String, dynamic> json = {
+      "dosagem": dosagem,
+      "intervalo": intervalo,
+      "horaInicial": dateTimeToDateTimeString(horaInicial),
+      "dataFinal": dateTimeToDateTimeString(dataFinal),
+      "idosoId": idosoId,
+      "medId": medId
+    };
     return json;
   }
 }

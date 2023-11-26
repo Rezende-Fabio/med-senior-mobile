@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:med_senior_mobile/components/carousel.dart';
 import 'package:med_senior_mobile/components/line.dart';
 import 'package:med_senior_mobile/components/cards/card_more_informations.dart';
-import 'package:med_senior_mobile/components/buttons/buttons_more_information.dart';
+import 'package:med_senior_mobile/components/buttons/buttons_more_information_med.dart';
 import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 
 class MoreInformationMed extends StatefulWidget {
@@ -256,7 +256,7 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
                                       ),
                                     ),
                                   ),
-                                  ButtonsMoreInformation(
+                                  ButtonsMoreInformationMed(
                                       "/cadastro/medicacao",
                                       "Editar Medicamento",
                                       "Editar Medicamento",

@@ -25,9 +25,9 @@ class SchedulesController extends ChangeNotifier {
           horaInicial: element["horaInicial"],
           dataFinal: element["dataFinal"],
           idosoId: element["idosoId"],
-          medId: element["medId"],
-          medicacao: Medicacao.fromMap(element["medicacao"]),
         );
+        usoMed.setMed(Medicacao.fromMap(element["medicacao"]));
+        usoMed.setMedId(element["medId"]);
 
         listaMed.add(usoMed);
       }
