@@ -29,7 +29,7 @@ class _SchedulesState extends State<Schedules> {
         SchedulesController(HttpApiReposirotyUsoMedicacao(dio: Dio()));
     _loadMedications();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.alert!.isNotEmpty) {
         Alert.showToast(context, widget.alert!["message"], widget.alert!["cor"]);
       }

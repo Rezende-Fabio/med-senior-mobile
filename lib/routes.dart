@@ -56,8 +56,7 @@ class RouteGenerator {
       case registerMedPage:
         final Map arguments = settings.arguments as Map;
 
-        if (arguments != null &&
-            arguments.containsKey("title") &&
+        if (arguments.containsKey("title") &&
             arguments.containsKey("text") &&
             arguments.containsKey("medicacao")) {
           String titlePage = arguments["title"];
@@ -74,7 +73,7 @@ class RouteGenerator {
       case moreInformationMedPage:
         final Map arguments = settings.arguments as Map;
 
-        if (arguments != null && arguments.containsKey("medId")) {
+        if (arguments.containsKey("medId")) {
           String medId = arguments["medId"];
 
           return MaterialPageRoute(
@@ -86,12 +85,11 @@ class RouteGenerator {
       case registerSchePage:
         final Map arguments = settings.arguments as Map;
 
-        if (arguments != null &&
-            arguments.containsKey("title") &&
+        if (arguments.containsKey("title") &&
             arguments.containsKey("text")) {
           String titlePage = arguments["title"];
           String textButton = arguments["text"];
-          UsoMedicacao? usoMedicacao = arguments["usoMedicacao"] ?? null;
+          UsoMedicacao? usoMedicacao = arguments["usoMedicacao"];
 
           return MaterialPageRoute(
             builder: (_) => RegisterSchedule(titlePage, textButton, usoMedicacao: usoMedicacao),
@@ -102,7 +100,7 @@ class RouteGenerator {
       case moreInformationSchePage:
       final Map arguments = settings.arguments as Map;
 
-        if (arguments != null && arguments.containsKey("usoMedId")) {
+        if (arguments.containsKey("usoMedId")) {
           String usoMedId = arguments["usoMedId"];
 
           return MaterialPageRoute(
