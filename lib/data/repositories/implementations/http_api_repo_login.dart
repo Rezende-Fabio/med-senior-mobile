@@ -22,9 +22,13 @@ class HttpApiReposirotyLogin implements ApiRepositoryLogin {
 
       return LoginProvider.fromMap(response.data);
     } on DioException catch (dioError) {
-      throw ApiException(
-          message: dioError.response!.data['errorMessage']['message'] ??
-              "Erro ao fazer login");
+      if (dioError.response == null) {
+        throw ApiException(
+            message: dioError.message.toString());
+      } else {
+        throw ApiException(
+            message: dioError.response!.data['errorMessage']['message']);
+      }
     } on TimeoutException {
       throw ApiException(
           message: "Servidor fora do ar, tente novamente mais tarde");

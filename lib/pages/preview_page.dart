@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:med_senior_mobile/pages/preview_page.dart';
 
+// ignore: must_be_immutable
 class Preview extends StatelessWidget {
   File file;
   Preview({super.key, required this.file});

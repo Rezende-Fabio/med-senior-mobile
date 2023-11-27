@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:med_senior_mobile/data/models/Idoso.dart';
 import 'package:med_senior_mobile/data/models/IdosoProvider.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_login.dart';
+import 'package:med_senior_mobile/utils/flushBar.dart';
 import 'package:provider/provider.dart';
 import 'package:med_senior_mobile/components/buttons/button_loding.dart';
 import 'package:med_senior_mobile/components/forms/form_login.dart';
 import 'package:med_senior_mobile/components/buttons/button_footer.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 import 'package:med_senior_mobile/pages/login_page/login_controller.dart';
 
@@ -30,18 +29,6 @@ class _LoginPageState extends State<LoginPage> {
     _loginController = LoginController(HttpApiReposirotyLogin(dio: Dio()));
   }
 
-  void showToast(String message, Color cor) => Flushbar(
-        duration: const Duration(seconds: 5),
-        title: "Aviso",
-        titleSize: 25,
-        message: message,
-        messageSize: 15,
-        flushbarPosition: FlushbarPosition.TOP,
-        margin: const EdgeInsets.only(top: 35, left: 10, right: 10),
-        borderRadius: BorderRadius.circular(25),
-        backgroundColor: cor,
-      )..show(context);
-
   void limparForm() {
     _formKey.currentState!.reset();
     _controllerEmail.clear();
@@ -59,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         limparForm();
         // ignore: use_build_context_synchronously
         LoginProvider loginProvider =
+            // ignore: use_build_context_synchronously
             Provider.of<LoginProvider>(context, listen: false);
         loginProvider.iduser = login!.iduser;
         loginProvider.token = login.token;
@@ -67,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
             await _loginController.getUser(login.iduser, login.token);
         // ignore: unused_local_variable
         IdosoProvider userProvider =
+            // ignore: use_build_context_synchronously
             Provider.of<IdosoProvider>(context, listen: false);
         userProvider.nome = user!.nome;
         userProvider.email = user.email;
@@ -76,7 +65,8 @@ class _LoginPageState extends State<LoginPage> {
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 0});
       } else {
-        showToast(
+        // ignore: use_build_context_synchronously
+        Alert.showToast(context,
             _loginController.errorApi, const Color.fromARGB(255, 133, 0, 0));
       }
     }
@@ -88,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
       body: ChangeNotifierProvider<LoginController>(
         create: (context) => _loginController,
         child: Builder(builder: (context) {
+          // ignore: unused_local_variable
           final local = context.watch<LoginController>();
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

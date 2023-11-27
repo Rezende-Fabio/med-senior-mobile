@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/models/UsoMedicacao.dart';
 import 'package:med_senior_mobile/data/repositories/api_repository_usoMedicacao.dart';
 import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
-import 'package:med_senior_mobile/data/models/Medicacao.dart';
 
 class InformationScheController extends ChangeNotifier {
   final ApiRepositoryUsoMedicacao apiRepositoryUsoMedicacao;

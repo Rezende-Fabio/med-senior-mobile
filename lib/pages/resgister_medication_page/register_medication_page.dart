@@ -7,13 +7,14 @@ import 'package:med_senior_mobile/data/repositories/implementations/http_api_rep
 import 'package:med_senior_mobile/pages/resgister_medication_page/resgister_med_controller.dart';
 import 'package:med_senior_mobile/components/buttons/button_footer.dart';
 import 'package:med_senior_mobile/components/forms/form_register_medication.dart';
-import 'package:another_flushbar/flushbar.dart';
+import 'package:med_senior_mobile/utils/flushBar.dart';
 import 'package:provider/provider.dart';
 
 class RegisterMedication extends StatefulWidget {
   final String titlePage;
   final String textButton;
   final Medicacao? medicacao;
+  // ignore: use_key_in_widget_constructors
   const RegisterMedication(this.titlePage, this.textButton, [this.medicacao]);
 
   @override
@@ -39,18 +40,6 @@ class _RegisterMedicationState extends State<RegisterMedication> {
       _selectedItem = widget.medicacao!.modoAdm;
     }
   }
-
-  void showToast(String message, Color cor) => Flushbar(
-        duration: const Duration(seconds: 5),
-        title: "Aviso",
-        titleSize: 25,
-        message: message,
-        messageSize: 15,
-        flushbarPosition: FlushbarPosition.TOP,
-        margin: const EdgeInsets.only(top: 35, left: 10, right: 10),
-        borderRadius: BorderRadius.circular(25),
-        backgroundColor: cor,
-      )..show(context);
 
   void _limparForm() {
     _formKey.currentState!.reset();
@@ -115,9 +104,11 @@ class _RegisterMedicationState extends State<RegisterMedication> {
           "paginaAtual": 0
         });
       } else {
-        showToast(_registerMedController.errorApi,
+        // ignore: use_build_context_synchronously
+        Alert.showToast(context, _registerMedController.errorApi,
             const Color.fromARGB(255, 133, 0, 0));
       }
+      _limparForm();
     }
   }
 

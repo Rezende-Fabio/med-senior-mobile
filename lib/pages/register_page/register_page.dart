@@ -1,12 +1,12 @@
 import 'package:med_senior_mobile/data/models/Cuidador.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_idoso.dart';
 import 'package:med_senior_mobile/pages/register_page/register_controller.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:med_senior_mobile/components/buttons/button_loding.dart';
 import 'package:med_senior_mobile/components/forms/form_register.dart';
 import 'package:med_senior_mobile/components/buttons/button_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/models/Idoso.dart';
+import 'package:med_senior_mobile/utils/flushBar.dart';
 import 'package:med_senior_mobile/utils/formatDate.dart';
 import 'package:dio/dio.dart';
 
@@ -46,18 +46,6 @@ class _RegisterState extends State<Register> {
     });
   }
 
-  void showToast(String message, Color cor) => Flushbar(
-        duration: const Duration(seconds: 5),
-        title: "Aviso",
-        titleSize: 25,
-        message: message,
-        messageSize: 15,
-        flushbarPosition: FlushbarPosition.TOP,
-        margin: const EdgeInsets.only(top: 35, left: 10, right: 10),
-        borderRadius: BorderRadius.circular(25),
-        backgroundColor: cor,
-      )..show(context);
-
   void limparForm() {
     _formKey.currentState!.reset();
     _controllerNome.clear();
@@ -95,11 +83,13 @@ class _RegisterState extends State<Register> {
 
       if (_registerController.isLoading == false &&
           _registerController.errorApi.isEmpty) {
-        showToast(
+        // ignore: use_build_context_synchronously
+        Alert.showToast(context,
             "Cadastrado com sucesso!", const Color.fromARGB(255, 22, 133, 0));
         limparForm();
       } else {
-        showToast(
+        // ignore: use_build_context_synchronously
+        Alert.showToast(context,
             _registerController.errorApi, const Color.fromARGB(255, 133, 0, 0));
       }
     }

@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/components/buttons/button_footer.dart';
@@ -11,6 +10,7 @@ import 'package:med_senior_mobile/data/repositories/implementations/http_api_rep
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_usoMedicacao.dart';
 import 'package:med_senior_mobile/pages/medications_page/medications_controller.dart';
 import 'package:med_senior_mobile/pages/register_schedule_page/resgiter_sche_controller.dart';
+import 'package:med_senior_mobile/utils/flushBar.dart';
 import 'package:med_senior_mobile/utils/formatDate.dart';
 import 'package:provider/provider.dart';
 
@@ -75,18 +75,6 @@ class _RegisterScheduleState extends State<RegisterSchedule> {
     }
   }
 
-  void showToast(String message, Color cor) => Flushbar(
-        duration: const Duration(seconds: 5),
-        title: "Aviso",
-        titleSize: 25,
-        message: message,
-        messageSize: 15,
-        flushbarPosition: FlushbarPosition.TOP,
-        margin: const EdgeInsets.only(top: 35, left: 10, right: 10),
-        borderRadius: BorderRadius.circular(25),
-        backgroundColor: cor,
-      )..show(context);
-
   void _updateScreen(bool isloading, String error) {
     setState(() {
       _registerScheController.isLoading = isloading;
@@ -149,7 +137,8 @@ class _RegisterScheduleState extends State<RegisterSchedule> {
           "paginaAtual": 1
         });
       } else {
-        showToast(_registerScheController.errorApi,
+        // ignore: use_build_context_synchronously
+        Alert.showToast(context, _registerScheController.errorApi,
             const Color.fromARGB(255, 133, 0, 0));
       }
     }

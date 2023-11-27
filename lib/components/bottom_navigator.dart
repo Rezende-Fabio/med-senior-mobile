@@ -5,7 +5,7 @@ class BottomNavgator extends StatelessWidget {
   final PageController pageController;
   final int paginaAtual;
 
-  BottomNavgator(this.pageController, this.paginaAtual);
+  const BottomNavgator(this.pageController, this.paginaAtual, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class BottomNavgator extends StatelessWidget {
           label: 'Perfil',
         ),
       ],
-      currentIndex: pageController?.page?.round() ?? paginaAtual,
+      currentIndex: pageController.page?.round() ?? paginaAtual,
       onTap: (index) {
         pageController.jumpToPage(index);
       },

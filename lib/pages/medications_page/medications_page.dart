@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
 import 'package:med_senior_mobile/pages/medications_page/medications_controller.dart';
+import 'package:med_senior_mobile/utils/flushBar.dart';
 import 'package:provider/provider.dart';
 import 'package:med_senior_mobile/components/buttons/button_footer.dart';
 import 'package:med_senior_mobile/components/line.dart';
 import 'package:med_senior_mobile/components/cards/card_list_medications.dart';
 import 'package:med_senior_mobile/components/loadings/loading.dart';
-import 'package:another_flushbar/flushbar.dart';
 
 class Medications extends StatefulWidget {
   final Map? alert;
@@ -31,22 +31,10 @@ class _MedicationsState extends State<Medications> {
   
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (widget.alert!.isNotEmpty) {
-        showToast(widget.alert!["message"], widget.alert!["cor"]);
+        Alert.showToast(context, widget.alert!["message"], widget.alert!["cor"]);
       }
     });
   }
-
-  void showToast(String message, Color cor) => Flushbar(
-        duration: const Duration(seconds: 5),
-        title: "Aviso",
-        titleSize: 25,
-        message: message,
-        messageSize: 15,
-        flushbarPosition: FlushbarPosition.TOP,
-        margin: const EdgeInsets.only(top: 35, left: 10, right: 10),
-        borderRadius: BorderRadius.circular(25),
-        backgroundColor: cor,
-      )..show(context);
 
   Future<void> _loadMedications() async {
     String userId = context.read<LoginProvider>().iduser;

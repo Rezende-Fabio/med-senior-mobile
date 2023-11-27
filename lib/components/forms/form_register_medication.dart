@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/mixins/validations_mixin.dart';
 
+// ignore: must_be_immutable
 class FormRegisterMedi extends StatefulWidget {
   final TextEditingController _controllerNome;
   final TextEditingController _controllerDesc;
