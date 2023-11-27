@@ -28,6 +28,7 @@ class _MedicationsState extends State<Medications> {
     _medicationsController =
         MedicationsController(HttpApiReposirotyMedicacao(dio: Dio()));
     _loadMedications();
+  
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (widget.alert!.isNotEmpty) {
         showToast(widget.alert!["message"], widget.alert!["cor"]);

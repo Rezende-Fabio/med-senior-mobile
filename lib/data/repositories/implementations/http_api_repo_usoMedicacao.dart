@@ -13,9 +13,26 @@ class HttpApiReposirotyUsoMedicacao implements ApiRepositoryUsoMedicacao {
   HttpApiReposirotyUsoMedicacao({required Dio dio}) : _dio = dio;
   
   @override
-  Future delete(String usoMedicacaoId, String token) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future delete(String usoMedicacaoId, String token) async {
+    try {
+      final url = '${FlutterConfig.get('URL_API')}/medicacao/uso/$usoMedicacaoId';
+      _dio.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _dio.delete(url).timeout(const Duration(seconds: 20));
+
+      return response.data;
+    } on DioException catch (dioError) {
+      throw ApiException(
+          message: dioError.message ?? "Erro ao tentar excluir agendamento da medicação");
+    } on TimeoutException {
+      throw ApiException(
+          message: "Servidor fora do ar, tente novamente mais tarde");
+    } catch (error, stacktrace) {
+      log("Erro ao tentar excluir agendamento da medicação",
+          error: error, stackTrace: stacktrace);
+
+      throw ApiException(message: "Erro ao tentar excluir agendamento da medicação");
+    }
   }
   
   @override

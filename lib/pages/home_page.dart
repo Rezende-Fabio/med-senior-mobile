@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           Medications(widget.alertMedication),
-          const Schedules(),
+          Schedules(widget.alertMedication),
           const Profile(),
         ],
       ),

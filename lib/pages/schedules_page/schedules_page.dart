@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/components/buttons/button_footer.dart';
@@ -10,7 +11,8 @@ import 'package:med_senior_mobile/pages/schedules_page/schedules_controller.dart
 import 'package:provider/provider.dart';
 
 class Schedules extends StatefulWidget {
-  const Schedules({super.key});
+  final Map? alert;
+  const Schedules(this.alert, {super.key});
 
   @override
   State<Schedules> createState() => _SchedulesState();
@@ -26,7 +28,25 @@ class _SchedulesState extends State<Schedules> {
     _schedulesController =
         SchedulesController(HttpApiReposirotyUsoMedicacao(dio: Dio()));
     _loadMedications();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (widget.alert!.isNotEmpty) {
+        showToast(widget.alert!["message"], widget.alert!["cor"]);
+      }
+    });
   }
+
+  void showToast(String message, Color cor) => Flushbar(
+        duration: const Duration(seconds: 5),
+        title: "Aviso",
+        titleSize: 25,
+        message: message,
+        messageSize: 15,
+        flushbarPosition: FlushbarPosition.TOP,
+        margin: const EdgeInsets.only(top: 35, left: 10, right: 10),
+        borderRadius: BorderRadius.circular(25),
+        backgroundColor: cor,
+      )..show(context);
 
   Future<void> _loadMedications() async {
     String userId = context.read<LoginProvider>().iduser;
@@ -77,15 +97,15 @@ class _SchedulesState extends State<Schedules> {
                       Container(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         height: MediaQuery.of(context).size.height * 0.7,
-                        child: local.isLoading 
-                        ? lodingCard(context)
-                        : ListView.builder(
-                          itemCount: listaMed.length,
-                          itemBuilder: (ctx, index) {
-                            final usoMed = listaMed[index];
-                            return CardListSchadules(usoMed);
-                          },
-                        ),
+                        child: local.isLoading
+                            ? lodingCard(context)
+                            : ListView.builder(
+                                itemCount: listaMed.length,
+                                itemBuilder: (ctx, index) {
+                                  final usoMed = listaMed[index];
+                                  return CardListSchadules(usoMed);
+                                },
+                              ),
                       ),
                     ],
                   ),

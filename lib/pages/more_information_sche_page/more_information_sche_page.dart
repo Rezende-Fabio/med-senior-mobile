@@ -68,6 +68,34 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
     });
   }
 
+  Future<void> _exclusionMedication(String idMed) async {
+    String token = context.read<LoginProvider>().token;
+
+    await _informationScheController.excluirMedicacao(
+        widget.usoMedicamentoId, token);
+
+    if (_informationScheController.isLoading == false &&
+          _informationScheController.errorApi.isEmpty) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushNamed("/home", arguments: {
+          "alert": {
+            "message": "Excluído com sucesso!",
+            "cor": const Color.fromARGB(255, 22, 133, 0)
+          },
+          "paginaAtual": 1
+        });
+      } else {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushNamed("/home", arguments: {
+          "alert": {
+            "message": _informationScheController.errorApi,
+            "cor": const Color.fromARGB(255, 133, 0, 0)
+          },
+          "paginaAtual": 1
+        });
+      }
+  }
+
   _showModal(String medicacao, String idMed) {
     showDialog(
       barrierDismissible: false,
@@ -97,7 +125,9 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
                   child: const Text("NÃO"),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _exclusionMedication(idMed);
+                  },
                   style: TextButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.red),
