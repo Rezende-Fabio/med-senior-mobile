@@ -1,34 +1,34 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:med_senior_mobile/data/models/LoginProvider.dart';
-import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
-import 'package:med_senior_mobile/pages/medications_page/medications_controller.dart';
-import 'package:provider/provider.dart';
 import 'package:med_senior_mobile/components/buttons/button_footer.dart';
 import 'package:med_senior_mobile/components/line.dart';
-import 'package:med_senior_mobile/components/cards/card_list_medications.dart';
+import 'package:med_senior_mobile/components/cards/card_list_schedules.dart';
 import 'package:med_senior_mobile/components/loadings/loading.dart';
-import 'package:another_flushbar/flushbar.dart';
+import 'package:med_senior_mobile/data/models/LoginProvider.dart';
+import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_usoMedicacao.dart';
+import 'package:med_senior_mobile/pages/schedules_page/schedules_controller.dart';
+import 'package:provider/provider.dart';
 
-class Medications extends StatefulWidget {
+class Schedules extends StatefulWidget {
   final Map? alert;
-  const Medications(this.alert, {super.key});
+  const Schedules(this.alert, {super.key});
 
   @override
-  State<Medications> createState() => _MedicationsState();
+  State<Schedules> createState() => _SchedulesState();
 }
 
-class _MedicationsState extends State<Medications> {
-  late MedicationsController _medicationsController;
+class _SchedulesState extends State<Schedules> {
+  late SchedulesController _schedulesController;
   List<dynamic> listaMed = [];
 
   @override
   void initState() {
     super.initState();
-    _medicationsController =
-        MedicationsController(HttpApiReposirotyMedicacao(dio: Dio()));
+    _schedulesController =
+        SchedulesController(HttpApiReposirotyUsoMedicacao(dio: Dio()));
     _loadMedications();
-  
+
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (widget.alert!.isNotEmpty) {
         showToast(widget.alert!["message"], widget.alert!["cor"]);
@@ -53,7 +53,7 @@ class _MedicationsState extends State<Medications> {
     String token = context.read<LoginProvider>().token;
 
     List<dynamic>? result =
-        await _medicationsController.consultarMedicamentos(userId, token);
+        await _schedulesController.consultarUsoMedicamentos(userId, token);
 
     if (result != null) {
       setState(() {
@@ -69,11 +69,11 @@ class _MedicationsState extends State<Medications> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: ChangeNotifierProvider<MedicationsController>(
-        create: (context) => _medicationsController,
+      child: ChangeNotifierProvider<SchedulesController>(
+        create: (context) => _schedulesController,
         child: Builder(
           builder: (context) {
-            final local = context.watch<MedicationsController>();
+            final local = context.watch<SchedulesController>();
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -85,7 +85,7 @@ class _MedicationsState extends State<Medications> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Medicações",
+                            "Medicamentos Agendados",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 25,
@@ -102,8 +102,8 @@ class _MedicationsState extends State<Medications> {
                             : ListView.builder(
                                 itemCount: listaMed.length,
                                 itemBuilder: (ctx, index) {
-                                  final med = listaMed[index];
-                                  return CardListMedications(med);
+                                  final usoMed = listaMed[index];
+                                  return CardListSchadules(usoMed);
                                 },
                               ),
                       ),
@@ -111,11 +111,10 @@ class _MedicationsState extends State<Medications> {
                   ),
                 ),
                 const ButtonFooter(
-                    "Cadastrar Novo Medicamento", "/cadastro/medicacao", {
-                  "title": "Cadastrar Medicamento",
-                  "text": "Cadastrar Medicamento",
-                  "medicacao": null
-                }),
+                  "Cadastrar Novo Agendamento",
+                  "/cadastro/agendamento",
+                  {"title": "Cadastrar Horário", "text": "Cadastrar Horário"},
+                ),
               ],
             );
           },

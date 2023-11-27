@@ -1,20 +1,21 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:med_senior_mobile/data/models/Medicacao.dart';
-import 'package:med_senior_mobile/data/repositories/api_repository_medicacao.dart';
-import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
-import 'package:flutter_config/flutter_config.dart';
-import "package:dio/dio.dart";
 
-class HttpApiReposirotyMedicacao implements ApiRepositoryMedicacao {
+import 'package:dio/dio.dart';
+import 'package:flutter_config/flutter_config.dart';
+import 'package:med_senior_mobile/data/models/UsoMedicacao.dart';
+import 'package:med_senior_mobile/data/repositories/api_repository_usoMedicacao.dart';
+import 'package:med_senior_mobile/data/repositories/error/api_exception.dart';
+
+class HttpApiReposirotyUsoMedicacao implements ApiRepositoryUsoMedicacao {
   final Dio _dio;
 
-  HttpApiReposirotyMedicacao({required Dio dio}) : _dio = dio;
-
+  HttpApiReposirotyUsoMedicacao({required Dio dio}) : _dio = dio;
+  
   @override
-  Future delete(String medicacaoId, String token) async {
+  Future delete(String usoMedicacaoId, String token) async {
     try {
-      final url = '${FlutterConfig.get('URL_API')}/medicacao/$medicacaoId';
+      final url = '${FlutterConfig.get('URL_API')}/medicacao/uso/$usoMedicacaoId';
       _dio.options.headers['Authorization'] = 'Bearer $token';
 
       final response = await _dio.delete(url).timeout(const Duration(seconds: 20));
@@ -22,27 +23,27 @@ class HttpApiReposirotyMedicacao implements ApiRepositoryMedicacao {
       return response.data;
     } on DioException catch (dioError) {
       throw ApiException(
-          message: dioError.message ?? "Erro ao tentar excluir medicação");
+          message: dioError.message ?? "Erro ao tentar excluir agendamento da medicação");
     } on TimeoutException {
       throw ApiException(
           message: "Servidor fora do ar, tente novamente mais tarde");
     } catch (error, stacktrace) {
-      log("Erro ao tentar excluir medicação",
+      log("Erro ao tentar excluir agendamento da medicação",
           error: error, stackTrace: stacktrace);
 
-      throw ApiException(message: "Erro ao tentar excluir medicação");
+      throw ApiException(message: "Erro ao tentar excluir agendamento da medicação");
     }
   }
-
+  
   @override
-  Future get(String medicacaoId, String token) async {
+  Future get(String usoMedicacaoId, String token) async {
     try {
-      final url = '${FlutterConfig.get('URL_API')}/medicacao/$medicacaoId';
+      final url = '${FlutterConfig.get('URL_API')}/medicacao/uso/$usoMedicacaoId';
       _dio.options.headers['Authorization'] = 'Bearer $token';
 
       final response = await _dio.get(url).timeout(const Duration(seconds: 20));
 
-      return Medicacao.fromMap(response.data);
+      return UsoMedicacao.fromMap(response.data);
     } on DioException catch (dioError) {
       throw ApiException(
           message: dioError.message ?? "Erro ao tentar consultar a medicação");
@@ -56,11 +57,11 @@ class HttpApiReposirotyMedicacao implements ApiRepositoryMedicacao {
       throw ApiException(message: "Erro ao tentar consultar a medicação");
     }
   }
-
+  
   @override
   Future getAll(String idosoId, String token) async {
     try {
-      final url = '${FlutterConfig.get('URL_API')}/medicacao/todos/$idosoId';
+      final url = '${FlutterConfig.get('URL_API')}/medicacao/uso/todos/$idosoId';
       _dio.options.headers['Authorization'] = 'Bearer $token';
 
       final response = await _dio.get(url).timeout(const Duration(seconds: 20));
@@ -79,18 +80,18 @@ class HttpApiReposirotyMedicacao implements ApiRepositoryMedicacao {
       throw ApiException(message: "Erro ao tentar consultar as medicões");
     }
   }
-
+  
   @override
-  Future post(Map medicacao, String token) async {
+  Future post(Map usoMedicacao, String token) async {
     try {
-      final url = '${FlutterConfig.get('URL_API')}/medicacao';
+      final url = '${FlutterConfig.get('URL_API')}/medicacao/uso';
       _dio.options.headers['Authorization'] = 'Bearer $token';
 
       final response = await _dio
-          .post(url, data: medicacao)
+          .post(url, data: usoMedicacao)
           .timeout(const Duration(seconds: 20));
 
-      return Medicacao.fromMap(response.data);
+      return response.data;
     } on DioException catch (dioError) {
       throw ApiException(message: dioError.message ?? "Erro ao inserir");
     } on TimeoutException {
@@ -103,28 +104,28 @@ class HttpApiReposirotyMedicacao implements ApiRepositoryMedicacao {
       throw ApiException(message: "Erro ao inserir");
     }
   }
-
+  
   @override
-  Future put(Map medicacao, String medicacaoId, String token) async{
-     try {
-      final url = '${FlutterConfig.get('URL_API')}/medicacao/$medicacaoId';
+  Future put(Map usoMedicacao, String usoMedicacaoId, String token) async {
+    try {
+      final url = '${FlutterConfig.get('URL_API')}/medicacao/uso/$usoMedicacaoId';
       _dio.options.headers['Authorization'] = 'Bearer $token';
 
       final response = await _dio
-          .put(url, data: medicacao)
+          .put(url, data: usoMedicacao)
           .timeout(const Duration(seconds: 20));
 
-      return Medicacao.fromMap(response.data);
+      return response.data;
     } on DioException catch (dioError) {
-      throw ApiException(message: dioError.message ?? "Erro ao editar");
+      throw ApiException(message: dioError.message ?? "Erro ao alterar");
     } on TimeoutException {
       throw ApiException(
           message: "Servidor fora do ar, tente novamente mais tarde");
     } catch (error, stacktrace) {
-      log("Erro ao editar",
+      log("Erro ao alterar",
           error: error, stackTrace: stacktrace);
 
-      throw ApiException(message: "Erro ao editar");
+      throw ApiException(message: "Erro ao alterar");
     }
   }
 }

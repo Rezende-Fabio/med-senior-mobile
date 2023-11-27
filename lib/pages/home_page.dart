@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/components/bottom_navigator.dart';
 import 'package:med_senior_mobile/pages/medications_page/medications_page.dart';
-import 'package:med_senior_mobile/pages/schedules_page.dart';
+import 'package:med_senior_mobile/pages/schedules_page/schedules_page.dart';
 import 'package:med_senior_mobile/pages/profile_page.dart';
 
 class Home extends StatefulWidget {
@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           Medications(widget.alertMedication),
-          const Schedules(),
+          Schedules(widget.alertMedication),
           const Profile(),
         ],
       ),

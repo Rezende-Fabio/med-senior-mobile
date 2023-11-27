@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
+import 'package:med_senior_mobile/data/models/UsoMedicacao.dart';
 import 'package:med_senior_mobile/pages/start_page/start_page.dart';
 import 'package:med_senior_mobile/pages/login_page/login_page.dart';
 import 'package:med_senior_mobile/pages/register_page/register_page.dart';
 import 'package:med_senior_mobile/pages/home_page.dart';
-import 'package:med_senior_mobile/pages/resgister_medication/register_medication_page.dart';
+import 'package:med_senior_mobile/pages/resgister_medication_page/register_medication_page.dart';
 import 'package:med_senior_mobile/pages/more_information_med_page/more_information_med_page.dart';
-import 'package:med_senior_mobile/pages/register_schelude_page.dart';
-import 'package:med_senior_mobile/pages/more_information_sche_page.dart';
+import 'package:med_senior_mobile/pages/register_schedule_page/register_schelude_page.dart';
+import 'package:med_senior_mobile/pages/more_information_sche_page/more_information_sche_page.dart';
 import 'package:med_senior_mobile/pages/locations_page/location_page.dart';
 
 class RouteGenerator {
@@ -90,17 +91,26 @@ class RouteGenerator {
             arguments.containsKey("text")) {
           String titlePage = arguments["title"];
           String textButton = arguments["text"];
+          UsoMedicacao? usoMedicacao = arguments["usoMedicacao"] ?? null;
 
           return MaterialPageRoute(
-            builder: (_) => RegisterSchedule(titlePage, textButton),
+            builder: (_) => RegisterSchedule(titlePage, textButton, usoMedicacao: usoMedicacao),
           );
         } else {
           throw const FormatException("Rota não encontrada");
         }
       case moreInformationSchePage:
-        return MaterialPageRoute(
-          builder: (_) => const MoreInformationSche(),
-        );
+      final Map arguments = settings.arguments as Map;
+
+        if (arguments != null && arguments.containsKey("usoMedId")) {
+          String usoMedId = arguments["usoMedId"];
+
+          return MaterialPageRoute(
+            builder: (_) => MoreInformationSche(usoMedId),
+          );
+        } else {
+          throw const FormatException("Rota não encontrada");
+        }
       case locationPage:
         return MaterialPageRoute(
           builder: (_) => const Location(),
