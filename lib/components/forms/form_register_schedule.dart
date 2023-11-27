@@ -36,12 +36,12 @@ class _FormRegisterScheduleState extends State<FormRegisterSchedule>
   void initState() {
     super.initState();
     setState(() {
-      widget._controllerDataFinal.text =
+      if (widget._controllerDataFinal.text.isEmpty){
+        widget._controllerDataFinal.text =
           DateFormat("d/MM/y").format(dataInicial);
-    });
-    if (widget._selectedItem != null) {
+      }
       _value = widget._selectedItem;
-    }
+    });
   }
 
   @override
@@ -55,7 +55,26 @@ class _FormRegisterScheduleState extends State<FormRegisterSchedule>
           children: [
             Container(
               margin: const EdgeInsets.only(bottom: 25, top: 25),
-              child: DropdownButton<Medicacao>(
+              child: widget._selectedItem != null 
+              ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 2),
+                    child: Text("Medicamento"),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8)
+                    ),
+                    child: Center(child: Text(widget._selectedItem!.nome, style: TextStyle(fontSize: 22),)),
+                  ),
+                ],
+              )
+              : DropdownButton<Medicacao>(
                 value: _value,
                 onChanged: (Medicacao? newValue) {
                   setState(() {
@@ -76,6 +95,7 @@ class _FormRegisterScheduleState extends State<FormRegisterSchedule>
             Container(
               margin: const EdgeInsets.only(bottom: 25),
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 controller: widget._controllerDosagem,
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
@@ -86,6 +106,7 @@ class _FormRegisterScheduleState extends State<FormRegisterSchedule>
             Container(
               margin: const EdgeInsets.only(bottom: 25),
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 controller: widget._controllerIntervalo,
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(

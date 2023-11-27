@@ -89,8 +89,26 @@ class HttpApiReposirotyUsoMedicacao implements ApiRepositoryUsoMedicacao {
   }
   
   @override
-  Future put(Map usoMedicacao, String usoMedicacaoId, String token) {
-    // TODO: implement put
-    throw UnimplementedError();
+  Future put(Map usoMedicacao, String usoMedicacaoId, String token) async {
+    try {
+      final url = '${FlutterConfig.get('URL_API')}/medicacao/uso/$usoMedicacaoId';
+      _dio.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _dio
+          .put(url, data: usoMedicacao)
+          .timeout(const Duration(seconds: 20));
+
+      return response.data;
+    } on DioException catch (dioError) {
+      throw ApiException(message: dioError.message ?? "Erro ao alterar");
+    } on TimeoutException {
+      throw ApiException(
+          message: "Servidor fora do ar, tente novamente mais tarde");
+    } catch (error, stacktrace) {
+      log("Erro ao alterar",
+          error: error, stackTrace: stacktrace);
+
+      throw ApiException(message: "Erro ao alterar");
+    }
   }
 }
