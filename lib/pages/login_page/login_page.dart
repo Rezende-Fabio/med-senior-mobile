@@ -48,8 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         LoginProvider loginProvider =
             // ignore: use_build_context_synchronously
             Provider.of<LoginProvider>(context, listen: false);
-        loginProvider.iduser = login!.iduser;
-        loginProvider.token = login.token;
+        loginProvider.login(login!.iduser, login.token);
 
         IdosoProvider? user =
             await _loginController.getUser(login.iduser, login.token);
@@ -66,8 +65,8 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 0});
       } else {
         // ignore: use_build_context_synchronously
-        Alert.showToast(context,
-            _loginController.errorApi, const Color.fromARGB(255, 133, 0, 0));
+        Alert.showToast(context, _loginController.errorApi,
+            const Color.fromARGB(255, 133, 0, 0));
       }
     }
   }

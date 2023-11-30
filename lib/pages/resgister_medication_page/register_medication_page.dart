@@ -31,6 +31,15 @@ class _RegisterMedicationState extends State<RegisterMedication> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      LoginProvider loginProvider =
+          // ignore: use_build_context_synchronously
+          Provider.of<LoginProvider>(context, listen: false);
+      if (!loginProvider.checkLogin()) {
+        Navigator.of(context).pushReplacementNamed("/login");
+      }
+    });
+
     _registerMedController = ResgisterMedMedController(
         HttpApiReposirotyMedicacao(dio: Dio()), _updateScreen);
 

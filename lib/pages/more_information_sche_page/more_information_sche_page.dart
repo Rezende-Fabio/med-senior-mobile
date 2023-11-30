@@ -36,6 +36,15 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      LoginProvider loginProvider =
+          // ignore: use_build_context_synchronously
+          Provider.of<LoginProvider>(context, listen: false);
+      if (!loginProvider.checkLogin()) {
+        Navigator.of(context).pushReplacementNamed("/login");
+      }
+    });
+
     _pageController.addListener(() {
       int prox = _pageController.page!.round();
       if (_paginaAtual != prox) {
@@ -75,25 +84,25 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
         widget.usoMedicamentoId, token);
 
     if (_informationScheController.isLoading == false &&
-          _informationScheController.errorApi.isEmpty) {
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/home", arguments: {
-          "alert": {
-            "message": "Excluído com sucesso!",
-            "cor": const Color.fromARGB(255, 22, 133, 0)
-          },
-          "paginaAtual": 1
-        });
-      } else {
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/home", arguments: {
-          "alert": {
-            "message": _informationScheController.errorApi,
-            "cor": const Color.fromARGB(255, 133, 0, 0)
-          },
-          "paginaAtual": 1
-        });
-      }
+        _informationScheController.errorApi.isEmpty) {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushNamed("/home", arguments: {
+        "alert": {
+          "message": "Excluído com sucesso!",
+          "cor": const Color.fromARGB(255, 22, 133, 0)
+        },
+        "paginaAtual": 1
+      });
+    } else {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushNamed("/home", arguments: {
+        "alert": {
+          "message": _informationScheController.errorApi,
+          "cor": const Color.fromARGB(255, 133, 0, 0)
+        },
+        "paginaAtual": 1
+      });
+    }
   }
 
   _showModal(String medicacao, String idMed) {
@@ -161,8 +170,8 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
                           _paginaAtual,
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.only(left: 10, right: 10, top: 25),
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 25),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -199,15 +208,17 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
                                           right: 0,
                                           left: 0,
                                           bottom: 20),
-                                      CardMoreInformation(
-                                          "Intervalo de Horas", "${usoMedicacao!.intervalo}"),
+                                      CardMoreInformation("Intervalo de Horas",
+                                          "${usoMedicacao!.intervalo}"),
                                       Line(
                                           top: 10,
                                           right: 0,
                                           left: 0,
                                           bottom: 20),
                                       CardMoreInformation(
-                                          "Data Final", dateTimeToDateString(usoMedicacao!.dataFinal)),
+                                          "Data Final",
+                                          dateTimeToDateString(
+                                              usoMedicacao!.dataFinal)),
                                       Line(
                                           top: 10,
                                           right: 0,
@@ -215,7 +226,8 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
                                           bottom: 20),
                                       CardMoreInformation(
                                           "Horário do primeiro consumo",
-                                          dateTimeToTimeString(usoMedicacao!.horaInicial)),
+                                          dateTimeToTimeString(
+                                              usoMedicacao!.horaInicial)),
                                     ],
                                   ),
                                 ),

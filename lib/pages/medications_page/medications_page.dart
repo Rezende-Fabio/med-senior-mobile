@@ -25,15 +25,23 @@ class _MedicationsState extends State<Medications> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      LoginProvider loginProvider =
+          // ignore: use_build_context_synchronously
+          Provider.of<LoginProvider>(context, listen: false);
+      if (!loginProvider.checkLogin()) {
+        Navigator.of(context).pushReplacementNamed("/login");
+      }
+
+      if (widget.alert!.isNotEmpty) {
+        Alert.showToast(
+            context, widget.alert!["message"], widget.alert!["cor"]);
+      }
+    });
+
     _medicationsController =
         MedicationsController(HttpApiReposirotyMedicacao(dio: Dio()));
     _loadMedications();
-  
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (widget.alert!.isNotEmpty) {
-        Alert.showToast(context, widget.alert!["message"], widget.alert!["cor"]);
-      }
-    });
   }
 
   Future<void> _loadMedications() async {

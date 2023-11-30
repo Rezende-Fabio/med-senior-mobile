@@ -35,6 +35,15 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      LoginProvider loginProvider =
+          // ignore: use_build_context_synchronously
+          Provider.of<LoginProvider>(context, listen: false);
+      if (!loginProvider.checkLogin()) {
+        Navigator.of(context).pushReplacementNamed("/login");
+      }
+    });
+
     _pageController.addListener(() {
       int prox = _pageController.page!.round();
       if (_paginaAtual != prox) {
@@ -68,25 +77,25 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
         widget.medicamentoId, token);
 
     if (_informationMedController.isLoading == false &&
-          _informationMedController.errorApi.isEmpty) {
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/home", arguments: {
-          "alert": {
-            "message": "Excluído com sucesso!",
-            "cor": const Color.fromARGB(255, 22, 133, 0)
-          },
-          "paginaAtual": 0
-        });
-      } else {
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/home", arguments: {
-          "alert": {
-            "message": _informationMedController.errorApi,
-            "cor": const Color.fromARGB(255, 133, 0, 0)
-          },
-          "paginaAtual": 0
-        });
-      }
+        _informationMedController.errorApi.isEmpty) {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushNamed("/home", arguments: {
+        "alert": {
+          "message": "Excluído com sucesso!",
+          "cor": const Color.fromARGB(255, 22, 133, 0)
+        },
+        "paginaAtual": 0
+      });
+    } else {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushNamed("/home", arguments: {
+        "alert": {
+          "message": _informationMedController.errorApi,
+          "cor": const Color.fromARGB(255, 133, 0, 0)
+        },
+        "paginaAtual": 0
+      });
+    }
   }
 
   void _expandirContainer() {
@@ -102,9 +111,12 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
       builder: (_) {
         return AlertDialog(
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          contentTextStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 25),
+          contentTextStyle: const TextStyle(
+              color: Color.fromARGB(255, 0, 0, 0), fontSize: 25),
           titleTextStyle: const TextStyle(
-              color: Color.fromARGB(255, 1, 1, 1), fontWeight: FontWeight.bold, fontSize: 16),
+              color: Color.fromARGB(255, 1, 1, 1),
+              fontWeight: FontWeight.bold,
+              fontSize: 16),
           title: const Text("Aviso"),
           content: Text("Deseja excluir a medicação $medicacao?"),
           actions: [
@@ -115,14 +127,18 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.black),
+                  style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.black),
                   child: const Text("NÃO"),
                 ),
                 TextButton(
                   onPressed: () {
                     _exclusionMedication(idMed);
                   },
-                  style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.red),
+                  style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.red),
                   child: const Text("SIM"),
                 )
               ],
@@ -257,14 +273,14 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
                                     ),
                                   ),
                                   ButtonsMoreInformationMed(
-                                      "/cadastro/medicacao",
-                                      "Editar Medicamento",
-                                      "Editar Medicamento",
-                                      medicacao: medicacao,
-                                      exclusionMedication: _showModal,
-                                      textModal: medicacao!.nome,
-                                      idExclusion: medicacao!.id,
-                                      ),
+                                    "/cadastro/medicacao",
+                                    "Editar Medicamento",
+                                    "Editar Medicamento",
+                                    medicacao: medicacao,
+                                    exclusionMedication: _showModal,
+                                    textModal: medicacao!.nome,
+                                    idExclusion: medicacao!.id,
+                                  ),
                                 ],
                               ),
                             ],

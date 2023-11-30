@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 class LoginProvider extends ChangeNotifier {
   String _iduser;
   String _token;
+  late bool _isAuthenticated;
 
   String get iduser => _iduser;
   String get token => _token;
@@ -26,5 +27,23 @@ class LoginProvider extends ChangeNotifier {
       iduser: map["data"]["idUsuario"],
       token: map["data"]["access_token"],
     );
+  }
+
+  void login(String idUser, String token) {
+    _iduser = idUser;
+    _token = token;
+    _isAuthenticated = true;
+    notifyListeners();
+  }
+
+  void logout() {
+    _isAuthenticated = false;
+    _iduser = "";
+    _token = "";
+    notifyListeners();
+  }
+
+  bool checkLogin() {
+    return _isAuthenticated;
   }
 }

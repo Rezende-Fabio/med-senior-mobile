@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/components/cards/card_profile.dart';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:med_senior_mobile/data/models/IdosoProvider.dart';
+import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 import 'package:med_senior_mobile/pages/preview_page.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,20 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   File file = File('');
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      LoginProvider loginProvider =
+          // ignore: use_build_context_synchronously
+          Provider.of<LoginProvider>(context, listen: false);
+      if (!loginProvider.checkLogin()) {
+        Navigator.of(context).pushReplacementNamed("/login");
+      }
+    });
+  }
 
   showPreview(foto) async {
     foto = await Navigator.push(
@@ -111,8 +126,13 @@ class _ProfileState extends State<Profile> {
                   width: double.infinity,
                   height: 70,
                   child: ElevatedButton(
-                    onPressed: () =>
-                        {Navigator.of(context).pushNamed("/login")},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed("/login");
+                      LoginProvider loginProvider =
+                          // ignore: use_build_context_synchronously
+                          Provider.of<LoginProvider>(context, listen: false);
+                      loginProvider.logout();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 209, 8, 18),
                       shape: RoundedRectangleBorder(

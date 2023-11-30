@@ -39,6 +39,15 @@ class _RegisterScheduleState extends State<RegisterSchedule> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      LoginProvider loginProvider =
+          // ignore: use_build_context_synchronously
+          Provider.of<LoginProvider>(context, listen: false);
+      if (!loginProvider.checkLogin()) {
+        Navigator.of(context).pushReplacementNamed("/login");
+      }
+    });
+
     _registerScheController = ResgisterScheController(
         HttpApiReposirotyUsoMedicacao(dio: Dio()), _updateScreen);
 
