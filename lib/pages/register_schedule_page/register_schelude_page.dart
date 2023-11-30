@@ -5,6 +5,7 @@ import 'package:med_senior_mobile/components/buttons/button_loding.dart';
 import 'package:med_senior_mobile/components/forms/form_register_schedule.dart';
 import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
+import 'package:med_senior_mobile/data/models/MensagemProvider.dart';
 import 'package:med_senior_mobile/data/models/UsoMedicacao.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_usoMedicacao.dart';
@@ -101,8 +102,12 @@ class _RegisterScheduleState extends State<RegisterSchedule> {
       String token = context.read<LoginProvider>().token;
       String message = "";
 
+      MensagemProvider mensagem =
+          // ignore: use_build_context_synchronously
+          Provider.of<MensagemProvider>(context, listen: false);
+
       if (widget.usoMedicacao == null) {
-        message = "Cadastrado";
+        message = "cadastrado";
 
         UsoMedicacao usoMed = UsoMedicacao(
             id: "",
@@ -118,7 +123,7 @@ class _RegisterScheduleState extends State<RegisterSchedule> {
         await _registerScheController.inserirUsoMedicamento(
             usoMed.fromJsonPost(), token);
       } else {
-        message = "Alterado";
+        message = "alterado";
 
         UsoMedicacao usoMed = UsoMedicacao(
             id: "",
@@ -137,14 +142,10 @@ class _RegisterScheduleState extends State<RegisterSchedule> {
 
       if (_registerScheController.isLoading == false &&
           _registerScheController.errorApi.isEmpty) {
+        mensagem.setAlert("Agendamento $message com sucesso!",
+            const Color.fromARGB(255, 22, 133, 0));
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/home", arguments: {
-          "alert": {
-            "message": "$message com sucesso!",
-            "cor": const Color.fromARGB(255, 22, 133, 0)
-          },
-          "paginaAtual": 1
-        });
+        Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 1});
       } else {
         // ignore: use_build_context_synchronously
         Alert.showToast(context, _registerScheController.errorApi,

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/components/loadings/loding_information_med.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
+import 'package:med_senior_mobile/data/models/MensagemProvider.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
 import 'package:med_senior_mobile/pages/more_information_med_page/information_med_controller.dart';
 import 'package:provider/provider.dart';
@@ -76,25 +77,21 @@ class _MoreInformationMedState extends State<MoreInformationMed> {
     await _informationMedController.excluirMedicacao(
         widget.medicamentoId, token);
 
+    MensagemProvider mensagem =
+        // ignore: use_build_context_synchronously
+        Provider.of<MensagemProvider>(context, listen: false);
+
     if (_informationMedController.isLoading == false &&
         _informationMedController.errorApi.isEmpty) {
+      mensagem.setAlert(
+          "Medicação excluída com sucesso!", const Color.fromARGB(255, 22, 133, 0));
       // ignore: use_build_context_synchronously
-      Navigator.of(context).pushNamed("/home", arguments: {
-        "alert": {
-          "message": "Excluído com sucesso!",
-          "cor": const Color.fromARGB(255, 22, 133, 0)
-        },
-        "paginaAtual": 0
-      });
+      Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 0});
     } else {
+      mensagem.setAlert(_informationMedController.errorApi,
+          const Color.fromARGB(255, 133, 0, 0));
       // ignore: use_build_context_synchronously
-      Navigator.of(context).pushNamed("/home", arguments: {
-        "alert": {
-          "message": _informationMedController.errorApi,
-          "cor": const Color.fromARGB(255, 133, 0, 0)
-        },
-        "paginaAtual": 0
-      });
+      Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 0});
     }
   }
 

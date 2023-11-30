@@ -5,6 +5,7 @@ import 'package:med_senior_mobile/components/line.dart';
 import 'package:med_senior_mobile/components/cards/card_list_schedules.dart';
 import 'package:med_senior_mobile/components/loadings/loading.dart';
 import 'package:med_senior_mobile/data/models/LoginProvider.dart';
+import 'package:med_senior_mobile/data/models/MensagemProvider.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_usoMedicacao.dart';
 import 'package:med_senior_mobile/pages/schedules_page/schedules_controller.dart';
 import 'package:med_senior_mobile/utils/flushBar.dart';
@@ -33,9 +34,13 @@ class _SchedulesState extends State<Schedules> {
         Navigator.of(context).pushReplacementNamed("/login");
       }
 
-      if (widget.alert!.isNotEmpty) {
-        Alert.showToast(
-            context, widget.alert!["message"], widget.alert!["cor"]);
+      MensagemProvider mensagem =
+          // ignore: use_build_context_synchronously
+          Provider.of<MensagemProvider>(context, listen: false);
+
+      if (mensagem.alertDisplayed) {
+        Alert.showToast(context, mensagem.mensagem, mensagem.cor);
+        mensagem.resetAlert();
       }
     });
 

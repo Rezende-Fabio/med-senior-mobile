@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/data/models/LoginProvider.dart';
+import 'package:med_senior_mobile/data/models/MensagemProvider.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
 import 'package:med_senior_mobile/pages/medications_page/medications_controller.dart';
 import 'package:med_senior_mobile/utils/flushBar.dart';
@@ -33,9 +34,13 @@ class _MedicationsState extends State<Medications> {
         Navigator.of(context).pushReplacementNamed("/login");
       }
 
-      if (widget.alert!.isNotEmpty) {
-        Alert.showToast(
-            context, widget.alert!["message"], widget.alert!["cor"]);
+      MensagemProvider mensagem =
+          // ignore: use_build_context_synchronously
+          Provider.of<MensagemProvider>(context, listen: false);
+
+      if (mensagem.alertDisplayed) {
+        Alert.showToast(context, mensagem.mensagem, mensagem.cor);
+        mensagem.resetAlert();
       }
     });
 

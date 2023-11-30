@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:med_senior_mobile/components/buttons/button_loding.dart';
 import 'package:med_senior_mobile/data/models/LoginProvider.dart';
 import 'package:med_senior_mobile/data/models/Medicacao.dart';
+import 'package:med_senior_mobile/data/models/MensagemProvider.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_medicacao.dart';
 import 'package:med_senior_mobile/pages/resgister_medication_page/resgister_med_controller.dart';
 import 'package:med_senior_mobile/components/buttons/button_footer.dart';
@@ -74,8 +75,12 @@ class _RegisterMedicationState extends State<RegisterMedication> {
       String token = context.read<LoginProvider>().token;
       String message = "";
 
+      MensagemProvider mensagem =
+          // ignore: use_build_context_synchronously
+          Provider.of<MensagemProvider>(context, listen: false);
+
       if (widget.medicacao == null) {
-        message = "Cadastrado";
+        message = "cadastrado";
         Medicacao med = Medicacao(
             id: "",
             nome: _controllerNome.text,
@@ -88,7 +93,7 @@ class _RegisterMedicationState extends State<RegisterMedication> {
         await _registerMedController.inserirMedicamento(
             med.fromJsonPost(), token);
       } else {
-        message = "Alterado";
+        message = "alterado";
         Medicacao med = Medicacao(
             id: widget.medicacao!.id,
             nome: _controllerNome.text,
@@ -104,14 +109,10 @@ class _RegisterMedicationState extends State<RegisterMedication> {
 
       if (_registerMedController.isLoading == false &&
           _registerMedController.errorApi.isEmpty) {
+        mensagem.setAlert("Medicação $message com sucesso!",
+            const Color.fromARGB(255, 22, 133, 0));
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/home", arguments: {
-          "alert": {
-            "message": "$message com sucesso!",
-            "cor": const Color.fromARGB(255, 22, 133, 0)
-          },
-          "paginaAtual": 0
-        });
+        Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 0});
       } else {
         // ignore: use_build_context_synchronously
         Alert.showToast(context, _registerMedController.errorApi,

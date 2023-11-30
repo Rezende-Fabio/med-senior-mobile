@@ -6,6 +6,7 @@ import 'package:med_senior_mobile/components/line.dart';
 import 'package:med_senior_mobile/components/cards/card_more_informations.dart';
 import 'package:med_senior_mobile/components/loadings/loding_information_sche.dart';
 import 'package:med_senior_mobile/data/models/LoginProvider.dart';
+import 'package:med_senior_mobile/data/models/MensagemProvider.dart';
 import 'package:med_senior_mobile/data/models/UsoMedicacao.dart';
 import 'package:med_senior_mobile/data/repositories/implementations/http_api_repo_usoMedicacao.dart';
 import 'package:med_senior_mobile/pages/more_information_sche_page/information_sche_controller.dart';
@@ -77,31 +78,27 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
     });
   }
 
-  Future<void> _exclusionMedication(String idMed) async {
+  Future<void> _exclusionEchedule(String idMed) async {
     String token = context.read<LoginProvider>().token;
 
     await _informationScheController.excluirMedicacao(
         widget.usoMedicamentoId, token);
 
+    MensagemProvider mensagem =
+        // ignore: use_build_context_synchronously
+        Provider.of<MensagemProvider>(context, listen: false);
+
     if (_informationScheController.isLoading == false &&
         _informationScheController.errorApi.isEmpty) {
+      mensagem.setAlert(
+          "Agendamento excluído com sucesso!", const Color.fromARGB(255, 22, 133, 0));
       // ignore: use_build_context_synchronously
-      Navigator.of(context).pushNamed("/home", arguments: {
-        "alert": {
-          "message": "Excluído com sucesso!",
-          "cor": const Color.fromARGB(255, 22, 133, 0)
-        },
-        "paginaAtual": 1
-      });
+      Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 1});
     } else {
+      mensagem.setAlert(_informationScheController.errorApi,
+          const Color.fromARGB(255, 133, 0, 0));
       // ignore: use_build_context_synchronously
-      Navigator.of(context).pushNamed("/home", arguments: {
-        "alert": {
-          "message": _informationScheController.errorApi,
-          "cor": const Color.fromARGB(255, 133, 0, 0)
-        },
-        "paginaAtual": 1
-      });
+      Navigator.of(context).pushNamed("/home", arguments: {"paginaAtual": 1});
     }
   }
 
@@ -135,7 +132,7 @@ class _MoreInformationScheState extends State<MoreInformationSche> {
                 ),
                 TextButton(
                   onPressed: () {
-                    _exclusionMedication(idMed);
+                    _exclusionEchedule(idMed);
                   },
                   style: TextButton.styleFrom(
                       foregroundColor: Colors.white,
