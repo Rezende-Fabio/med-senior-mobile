@@ -100,13 +100,20 @@ class _MedicationsState extends State<Medications> {
                         height: MediaQuery.of(context).size.height * 0.7,
                         child: local.isLoading
                             ? lodingCard(context)
-                            : ListView.builder(
-                                itemCount: listaMed.length,
-                                itemBuilder: (ctx, index) {
-                                  final med = listaMed[index];
-                                  return CardListMedications(med);
-                                },
-                              ),
+                            : listaMed.isEmpty
+                                ? const Center(
+                                    child: Text(
+                                      "Sem Medicações",
+                                      style: TextStyle(fontSize: 25),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: listaMed.length,
+                                    itemBuilder: (ctx, index) {
+                                      final med = listaMed[index];
+                                      return CardListMedications(med);
+                                    },
+                                  ),
                       ),
                     ],
                   ),

@@ -100,13 +100,20 @@ class _SchedulesState extends State<Schedules> {
                         height: MediaQuery.of(context).size.height * 0.7,
                         child: local.isLoading
                             ? lodingCard(context)
-                            : ListView.builder(
-                                itemCount: listaMed.length,
-                                itemBuilder: (ctx, index) {
-                                  final usoMed = listaMed[index];
-                                  return CardListSchadules(usoMed);
-                                },
-                              ),
+                            : listaMed.isEmpty
+                                ? const Center(
+                                    child: Text(
+                                      "Sem Agendamentos",
+                                      style: TextStyle(fontSize: 25),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: listaMed.length,
+                                    itemBuilder: (ctx, index) {
+                                      final usoMed = listaMed[index];
+                                      return CardListSchadules(usoMed);
+                                    },
+                                  ),
                       ),
                     ],
                   ),
